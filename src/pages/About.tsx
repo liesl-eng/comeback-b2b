@@ -39,7 +39,7 @@ const About = () => {
 
           <div className="space-y-4 md:space-y-6 mb-8 md:mb-12 text-base md:text-lg text-muted-foreground">
             <p>
-              Comeback Goods was founded by someone who came up through logistics. We don't broker deals through middlemen — we plug directly into brand warehouses and authorized suppliers. That means consistent sourcing, real documentation, and no mystery about where the inventory came from.
+              Comeback Goods was founded by a team who came up through e-commerce and logistics - so we're able to plug directly into brand warehouses and authorized suppliers. That means consistent sourcing, real documentation, and no mystery about where the inventory came from.
             </p>
             <p>
               Every item is inspected and condition-graded before it reaches your quote. You know exactly what you're getting — and so do your customers.

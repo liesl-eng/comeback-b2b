@@ -3,6 +3,7 @@ import { useFavorites } from "@/contexts/FavoritesContext";
 import { Button } from "@/components/ui/button";
 import { Heart, ArrowRight, ImageOff, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { SHOW_PRICING } from "@/lib/featureFlags";
 
 function formatUsd(n: number | null | undefined): string | null {
   if (n == null || isNaN(n as number)) return null;

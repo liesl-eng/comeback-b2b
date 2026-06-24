@@ -74,10 +74,25 @@ const Auth = () => {
       return;
     }
 
-    if (signupPassword.length < 6) {
+    if (signupPassword.length < 12) {
       toast({
         title: "Password too short",
-        description: "Password must be at least 6 characters.",
+        description: "Password must be at least 12 characters.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const hasUpper = /[A-Z]/.test(signupPassword);
+    const hasLower = /[a-z]/.test(signupPassword);
+    const hasNumber = /[0-9]/.test(signupPassword);
+    const hasSymbol = /[^A-Za-z0-9]/.test(signupPassword);
+    const complexityScore = [hasUpper, hasLower, hasNumber, hasSymbol].filter(Boolean).length;
+    if (complexityScore < 3) {
+      toast({
+        title: "Password too weak",
+        description:
+          "Use at least 3 of: uppercase, lowercase, number, symbol.",
         variant: "destructive",
       });
       return;

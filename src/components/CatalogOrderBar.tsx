@@ -14,8 +14,7 @@ import {
 import { ShoppingCart, Trash2, CheckCircle2, AlertCircle, Minus, Plus } from "lucide-react";
 import { useCatalogOrder, BRAND_MOQ } from "@/contexts/CatalogOrderContext";
 import { cn } from "@/lib/utils";
-
-const CATALOG_ORDER_WEBHOOK_URL = "https://hook.us2.make.com/tgsprcsyevdbcmahx6db65q8h8rvkmv2";
+import { supabase } from "@/integrations/supabase/client";
 
 const fmt = (n: number) => `$${Math.round(n).toLocaleString()}`;
 
@@ -40,28 +39,21 @@ export default function CatalogOrderBar() {
       .map((l) => `${l.quantity} x ${l.name} (${l.brand}) @ ${fmt(l.unitPrice)} = ${fmt(l.quantity * l.unitPrice)}`)
       .join("\n");
     const payload = {
+      kind: "catalog_order" as const,
       timestamp: new Date().toLocaleString("en-US", { timeZone: "America/New_York" }),
-      company_name: contact.companyName,
-      contact_name: contact.contactName,
-      email: contact.email,
-      phone: contact.phone,
-      notes: contact.notes,
-      order_items: orderItems,
+      company_name: contact.companyName.trim().slice(0, 200),
+      contact_name: contact.contactName.trim().slice(0, 200),
+      email: contact.email.trim().slice(0, 255),
+      phone: contact.phone.trim().slice(0, 40),
+      notes: contact.notes.trim().slice(0, 2000),
+      order_items: orderItems.slice(0, 20000),
       total_items: String(totals.items),
       order_total: fmt(totals.grandTotal),
     };
-    console.log("SUBMITTING CATALOG ORDER", payload);
     try {
-      if (CATALOG_ORDER_WEBHOOK_URL) {
-        await fetch(CATALOG_ORDER_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-      }
+      await supabase.functions.invoke("submit-webhook", { body: payload });
       setSubmitted(true);
-    } catch (e) {
-      console.error("[CatalogOrderBar] submit error", e);
+    } catch {
       setSubmitted(true);
     } finally {
       setSubmitting(false);

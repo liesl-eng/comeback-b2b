@@ -106,13 +106,11 @@ export default function AdminImport() {
         });
 
         if (error) {
-          console.error('Error checking admin role:', error);
           setIsAdmin(false);
         } else {
           setIsAdmin(data === true);
         }
-      } catch (err) {
-        console.error('Error checking admin role:', err);
+      } catch {
         setIsAdmin(false);
       } finally {
         setCheckingRole(false);

@@ -13,8 +13,7 @@ import {
 import { ArrowRight, CheckCircle2, Sparkles, ClipboardList, PackageSearch, CalendarClock, ChevronRight, LucideIcon } from "lucide-react";
 import ProgramProductGrid, { ProgramProductGridConfig } from "@/components/ProgramProductGrid";
 import Navbar from "@/components/Navbar";
-
-const EMAIL_CAPTURE_WEBHOOK_URL = "https://hook.us2.make.com/rh6adihbukcjw82u1rf3nmacdx81ri5l";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface ProgramConfig {
   programName: string;            // e.g. "Lighting Program"
@@ -73,20 +72,25 @@ const EmailCaptureSection = ({ source, heading, subheading, italicLine }: {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || submitting) return;
+    const trimmed = email.trim();
+    if (!trimmed || submitting) return;
+    // Lightweight client-side email check; server re-validates with zod.
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed) || trimmed.length > 255) {
+      setSubmitting(false);
+      return;
+    }
     setSubmitting(true);
     try {
-      await fetch(EMAIL_CAPTURE_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email.trim(),
+      await supabase.functions.invoke("submit-webhook", {
+        body: {
+          kind: "email_capture",
+          email: trimmed,
           timestamp: new Date().toISOString(),
-          source: `${source}-email-capture`,
-        }),
+          source: `${source}-email-capture`.slice(0, 120),
+        },
       });
-    } catch (err) {
-      console.error("Email capture submit failed:", err);
+    } catch {
+      /* swallow — confirmation still shown */
     } finally {
       setDone(true);
       setSubmitting(false);

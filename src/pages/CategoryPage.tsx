@@ -383,11 +383,6 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                             {formatMoney(msrpForDisplay)}
                           </span>
                         )}
-                        {pct != null && pct > 0 && (
-                          <span className="ml-auto text-sm font-semibold text-accent">
-                            {pct}% off
-                          </span>
-                        )}
                       </div>
                     ) : user && !isApproved ? (
                       <div className="mt-auto pt-2">

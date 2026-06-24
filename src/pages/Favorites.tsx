@@ -71,7 +71,7 @@ const Favorites = () => {
                       <div className="text-[10px] font-bold tracking-widest text-accent uppercase">{data.brand}</div>
                     )}
                     <div className="font-medium leading-tight line-clamp-2">{data.name}</div>
-                    {(price || msrp) && (
+                    {SHOW_PRICING && (price || msrp) && (
                       <div className="mt-auto pt-2 flex items-baseline gap-2">
                         {msrp && price && (
                           <span className="text-xs text-muted-foreground line-through">{msrp}</span>

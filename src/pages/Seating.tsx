@@ -13,7 +13,7 @@ const config: ProgramConfig = {
   seo: {
     title: "Shop Seating — Comeback Goods",
     description:
-      "Dining chairs, accent chairs, lounge seating and more from Modus Furniture, Arteriors Home, and Havenly. Priced 60% below retail.",
+      "Dining chairs, accent chairs, lounge seating and more from Modus Furniture, Arteriors Home, and Havenly. Priced 75% below retail.",
   },
   hero: {
     badgeText: "Seating",
@@ -37,7 +37,7 @@ const config: ProgramConfig = {
     hideEyebrow: true,
     stickyHeader: true,
     subtext:
-      "Dining chairs, accent chairs, lounge seating and more from Modus Furniture, Arteriors Home, and Havenly. Priced 60% below retail.",
+      "Dining chairs, accent chairs, lounge seating and more from Modus Furniture, Arteriors Home, and Havenly. Priced 75% below retail.",
     brands: [
       {
         label: "Modus Furniture",

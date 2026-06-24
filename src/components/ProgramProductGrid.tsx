@@ -47,7 +47,7 @@ interface CardProduct {
 }
 
 function calcYourPrice(msrp: number): number {
-  return Math.round(msrp * 0.4);
+  return Math.round(msrp * 0.25);
 }
 
 function formatUsd(n: number): string {

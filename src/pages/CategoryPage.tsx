@@ -299,11 +299,11 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {visible.map((p, i) => {
-              // Force 60% off MSRP across the catalog UI
+              // Force 75% off MSRP across the catalog UI
               const msrpForDisplay = p.msrp ?? p.price ?? null;
               const displayPrice =
-                msrpForDisplay != null ? Math.round(msrpForDisplay * 0.4 * 100) / 100 : p.price;
-              const pct = msrpForDisplay != null ? 60 : computeDiscountPct(p);
+                msrpForDisplay != null ? Math.round(msrpForDisplay * 0.25 * 100) / 100 : p.price;
+              const pct = msrpForDisplay != null ? 75 : computeDiscountPct(p);
               const isMeridian = /meridian/i.test(p.name);
               const productId = `${p.brand}::${p.name}`;
               const cardId = `p-${slugify(productId)}`;
@@ -381,11 +381,6 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                         {msrpForDisplay != null && displayPrice != null && msrpForDisplay > displayPrice && (
                           <span className="text-sm text-muted-foreground line-through">
                             {formatMoney(msrpForDisplay)}
-                          </span>
-                        )}
-                        {pct != null && pct > 0 && (
-                          <span className="ml-auto text-sm font-semibold text-accent">
-                            {pct}% off
                           </span>
                         )}
                       </div>

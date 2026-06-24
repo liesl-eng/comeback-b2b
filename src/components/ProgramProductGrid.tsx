@@ -10,7 +10,6 @@ import { useFavorites } from "@/contexts/FavoritesContext";
 import { cn } from "@/lib/utils";
 import { useInventoryRefreshedAt, formatInventoryRefreshed } from "@/hooks/useInventoryRefreshedAt";
 import { useAuth } from "@/contexts/AuthContext";
-import { SHOW_PRICING } from "@/lib/featureFlags";
 
 export interface BrandSource {
   /** Display label on the toggle pill */
@@ -158,7 +157,7 @@ const ProductCard = ({ p }: { p: CardProduct }) => {
         <p className="text-xs text-muted-foreground mb-3">
           {p.unitsAvailable >= 25 ? "25+ available" : `${p.unitsAvailable} in stock`}
         </p>
-        {SHOW_PRICING && user && isApproved ? (
+        {user && isApproved ? (
           <>
             <div className="mb-1 flex items-baseline gap-2">
               <span className="text-sm text-muted-foreground line-through">{formatUsd(p.msrp)}</span>
@@ -177,7 +176,7 @@ const ProductCard = ({ p }: { p: CardProduct }) => {
               }}
             />
           </>
-        ) : SHOW_PRICING && user && !isApproved ? (
+        ) : user && !isApproved ? (
           <div className="mb-1">
             <Link
               to={`/unlock?redirect=${encodeURIComponent((typeof window !== "undefined" ? window.location.pathname + window.location.search : "/") + `#${cardId}`)}`}
@@ -186,7 +185,7 @@ const ProductCard = ({ p }: { p: CardProduct }) => {
               Enter your access code to unlock pricing
             </Link>
           </div>
-        ) : SHOW_PRICING ? (
+        ) : (
           <div className="mb-1">
             <Link
               to={`/auth?redirect=${encodeURIComponent((typeof window !== "undefined" ? window.location.pathname + window.location.search : "/") + `#${cardId}`)}`}
@@ -195,7 +194,7 @@ const ProductCard = ({ p }: { p: CardProduct }) => {
               Sign in to see pricing
             </Link>
           </div>
-        ) : null}
+        )}
       </div>
     </Card>
   );

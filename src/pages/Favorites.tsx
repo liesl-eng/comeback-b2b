@@ -3,7 +3,6 @@ import { useFavorites } from "@/contexts/FavoritesContext";
 import { Button } from "@/components/ui/button";
 import { Heart, ArrowRight, ImageOff, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { SHOW_PRICING } from "@/lib/featureFlags";
 
 function formatUsd(n: number | null | undefined): string | null {
   if (n == null || isNaN(n as number)) return null;
@@ -71,7 +70,7 @@ const Favorites = () => {
                       <div className="text-[10px] font-bold tracking-widest text-accent uppercase">{data.brand}</div>
                     )}
                     <div className="font-medium leading-tight line-clamp-2">{data.name}</div>
-                    {SHOW_PRICING && (price || msrp) && (
+                    {(price || msrp) && (
                       <div className="mt-auto pt-2 flex items-baseline gap-2">
                         {msrp && price && (
                           <span className="text-xs text-muted-foreground line-through">{msrp}</span>

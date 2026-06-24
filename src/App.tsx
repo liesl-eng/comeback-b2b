@@ -29,10 +29,12 @@ const ExternalRedirect = ({ to }: { to: string }) => {
   if (typeof window !== "undefined") window.location.replace(to);
   return null;
 };
+import LightingProgram from "./pages/LightingProgram";
+import MirrorProgram from "./pages/MirrorProgram";
 import MeridianLamp from "./pages/MeridianLamp";
-import Restocking from "./pages/Restocking";
 
 import Seating from "./pages/Seating";
+import Tables from "./pages/Tables";
 import All from "./pages/All";
 import Beds from "./pages/Beds";
 import Cabinets from "./pages/Cabinets";
@@ -71,15 +73,15 @@ const App = () => {
                   <Route path="/pallets/:palletId" element={<Navigate to="/" replace />} />
                   <Route path="/pallet" element={<Navigate to="/" replace />} />
                   <Route path="/cart" element={<Navigate to="/" replace />} />
-                  <Route path="/lighting" element={<Restocking />} />
+                  <Route path="/lighting" element={<LightingProgram />} />
                   <Route path="/lighting-program" element={<Navigate to="/lighting" replace />} />
                   <Route path="/Lighting-Program" element={<Navigate to="/lighting" replace />} />
-                  <Route path="/mirrors" element={<Restocking />} />
+                  <Route path="/mirrors" element={<MirrorProgram />} />
                   <Route path="/mirror-program" element={<Navigate to="/mirrors" replace />} />
                   <Route path="/Mirror-Program" element={<Navigate to="/mirrors" replace />} />
                   <Route path="/rechargeable-table-lamps" element={<MeridianLamp />} />
                   <Route path="/seating" element={<Seating />} />
-                  <Route path="/tables" element={<Restocking />} />
+                  <Route path="/tables" element={<Tables />} />
                   <Route path="/all" element={<All />} />
                   <Route path="/beds" element={<Beds />} />
                   <Route path="/cabinets" element={<Cabinets />} />

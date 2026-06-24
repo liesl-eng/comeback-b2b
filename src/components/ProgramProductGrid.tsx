@@ -470,7 +470,7 @@ const ProgramProductGrid = ({ config }: { config: ProgramProductGridConfig }) =>
 
         <div ref={gridTopRef} className={config.stickyHeader ? "container mx-auto px-4 scroll-mt-32" : "scroll-mt-32"}>
           {config.stickyHeader && inventoryRefreshedAt && (
-            <p className="mt-4 mb-2 text-xs uppercase tracking-widest text-accent font-semibold flex items-center gap-2">
+            <p className="mt-4 mb-2 text-sm uppercase tracking-widest text-foreground font-semibold flex items-center gap-2">
               <span className="relative inline-flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-ping" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />

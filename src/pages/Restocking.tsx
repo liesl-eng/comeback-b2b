@@ -24,19 +24,12 @@ const Restocking = () => {
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-20">
         <div className="max-w-xl w-full text-center border border-border rounded-2xl bg-card p-10 md:p-14 shadow-sm">
-          <div className="mx-auto mb-6 h-14 w-14 rounded-full bg-accent/15 text-accent flex items-center justify-center">
-            <PackageOpen className="h-7 w-7" />
+          <div className="mx-auto mb-8 h-24 w-24 md:h-28 md:w-28 rounded-full bg-accent/15 text-foreground flex items-center justify-center">
+            <PackageOpen className="h-12 w-12 md:h-14 md:w-14" />
           </div>
-          <p className="text-sm font-medium tracking-wide uppercase text-accent mb-3">
+          <h1 className="text-5xl md:text-6xl font-semibold text-foreground mb-8">
             Restocking
-          </p>
-          <h1 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
-            {category} is restocking
           </h1>
-          <p className="text-muted-foreground text-base md:text-lg mb-8">
-            We're refreshing inventory for our {category.toLowerCase()} program.
-            Check back soon, or explore what's available now.
-          </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild size="lg">
               <a

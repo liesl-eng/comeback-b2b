@@ -374,7 +374,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                     <h3 className="text-lg font-semibold text-foreground line-clamp-2 min-h-[3.5rem] leading-snug">
                       {p.name}
                     </h3>
-                    {user && isApproved ? (
+                    {SHOW_PRICING && user && isApproved ? (
                       <div className="flex items-baseline gap-2 mt-auto pt-2">
                         <span className="text-xl font-bold text-foreground">
                           {formatMoney(displayPrice)}
@@ -390,7 +390,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                           </span>
                         )}
                       </div>
-                    ) : user && !isApproved ? (
+                    ) : SHOW_PRICING && user && !isApproved ? (
                       <div className="mt-auto pt-2">
                         <Link
                           to={`/unlock?redirect=${encodeURIComponent((typeof window !== "undefined" ? window.location.pathname + window.location.search : "/") + `#${cardId}`)}`}
@@ -399,7 +399,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                           Enter your access code to unlock pricing
                         </Link>
                       </div>
-                    ) : (
+                    ) : SHOW_PRICING ? (
                       <div className="mt-auto pt-2">
                         <Link
                           to={`/auth?redirect=${encodeURIComponent((typeof window !== "undefined" ? window.location.pathname + window.location.search : "/") + `#${cardId}`)}`}
@@ -408,12 +408,12 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                           Sign in to see pricing
                         </Link>
                       </div>
-                    )}
+                    ) : null}
                     <div className="text-sm text-muted-foreground">
                       {p.unitsAvailable > 25 ? "25+" : p.unitsAvailable} {p.unitsAvailable === 1 ? "unit" : "units"} available
 
                     </div>
-                    {user && isApproved && p.unitsAvailable > 0 && displayPrice != null && (
+                    {SHOW_PRICING && user && isApproved && p.unitsAvailable > 0 && displayPrice != null && (
                       <AddToOrderButton
                         item={{
                           id: productId,

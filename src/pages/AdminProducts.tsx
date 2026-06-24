@@ -80,6 +80,16 @@ export default function AdminProducts() {
     return init as Record<BrandTab, BrandState>;
   });
 
+  // Duplicate scanner state
+  const [dupScanning, setDupScanning] = useState(false);
+  const [dupGroups, setDupGroups] = useState<{ key: string; items: DupRow[] }[] | null>(null);
+  const [dupBusy, setDupBusy] = useState<string | null>(null);
+
+  // Wipe catalog
+  const [wiping, setWiping] = useState(false);
+  const [wipeConfirm, setWipeConfirm] = useState("");
+
+
   useEffect(() => {
     async function checkAdminRole() {
       if (!user) {
@@ -143,14 +153,8 @@ export default function AdminProducts() {
     );
   }
 
-  // Duplicate scanner state
-  const [dupScanning, setDupScanning] = useState(false);
-  const [dupGroups, setDupGroups] = useState<{ key: string; items: DupRow[] }[] | null>(null);
-  const [dupBusy, setDupBusy] = useState<string | null>(null);
 
-  // Wipe catalog
-  const [wiping, setWiping] = useState(false);
-  const [wipeConfirm, setWipeConfirm] = useState("");
+
 
   async function wipeCatalog() {
     if (wipeConfirm !== "WIPE") {

@@ -11,7 +11,7 @@ const config: ProgramConfig = {
   seo: {
     title: "Shop Cabinets & Storage — Comeback Goods",
     description:
-      "Cabinets, chests, bookshelves, and storage pieces from Arteriors Home and Modus Furniture. Priced 60% below retail.",
+      "Cabinets, chests, bookshelves, and storage pieces from Arteriors Home and Modus Furniture. Priced 75% below retail.",
   },
   hero: {
     badgeText: "Cabinets",
@@ -35,7 +35,7 @@ const config: ProgramConfig = {
     hideEyebrow: true,
     stickyHeader: true,
     subtext:
-      "Cabinets, chests, and bookshelves from Arteriors Home and Modus Furniture. Priced 60% below retail.",
+      "Cabinets, chests, and bookshelves from Arteriors Home and Modus Furniture. Priced 75% below retail.",
     brands: [
       {
         label: "Arteriors Home",

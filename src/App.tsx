@@ -29,12 +29,10 @@ const ExternalRedirect = ({ to }: { to: string }) => {
   if (typeof window !== "undefined") window.location.replace(to);
   return null;
 };
-import LightingProgram from "./pages/LightingProgram";
-import MirrorProgram from "./pages/MirrorProgram";
 import MeridianLamp from "./pages/MeridianLamp";
+import Restocking from "./pages/Restocking";
 
 import Seating from "./pages/Seating";
-import Tables from "./pages/Tables";
 import All from "./pages/All";
 import Beds from "./pages/Beds";
 import Cabinets from "./pages/Cabinets";

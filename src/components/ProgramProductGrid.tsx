@@ -10,6 +10,7 @@ import { useFavorites } from "@/contexts/FavoritesContext";
 import { cn } from "@/lib/utils";
 import { useInventoryRefreshedAt, formatInventoryRefreshed } from "@/hooks/useInventoryRefreshedAt";
 import { useAuth } from "@/contexts/AuthContext";
+import { SHOW_PRICING } from "@/lib/featureFlags";
 
 export interface BrandSource {
   /** Display label on the toggle pill */

@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import AddToOrderButton from "@/components/AddToOrderButton";
 import { useInventoryRefreshedAt, formatInventoryRefreshed } from "@/hooks/useInventoryRefreshedAt";
 import { useAuth } from "@/contexts/AuthContext";
+import { SHOW_PRICING } from "@/lib/featureFlags";
 
 type SortKey = "default" | "price-asc" | "price-desc" | "qty-asc" | "qty-desc" | "name-asc";
 

@@ -275,7 +275,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
             {title}
           </h1>
           {refreshedAt ? (
-            <p className="mt-2 text-sm uppercase tracking-widest text-foreground font-semibold flex items-center gap-2">
+            <p className="mt-2 text-sm uppercase tracking-widest text-muted-foreground font-semibold flex items-center gap-2">
               <span className="relative inline-flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-ping" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />

@@ -398,7 +398,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                       {p.unitsAvailable > 25 ? "25+" : p.unitsAvailable} {p.unitsAvailable === 1 ? "unit" : "units"} available
 
                     </div>
-                    {user && isApproved && p.unitsAvailable > 0 && displayPrice != null && (
+                    {isApproved && p.unitsAvailable > 0 && displayPrice != null && (
                       <AddToOrderButton
                         item={{
                           id: productId,

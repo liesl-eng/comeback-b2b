@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      access_code_redemptions: {
+        Row: {
+          code: string
+          id: string
+          redeemed_at: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          id?: string
+          redeemed_at?: string
+          user_id: string
+        }
+        Update: {
+          code?: string
+          id?: string
+          redeemed_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       access_codes: {
         Row: {
           assigned_to_email: string | null
@@ -422,6 +443,7 @@ export type Database = {
       is_approved: { Args: { _user_id: string }; Returns: boolean }
       last_inventory_refreshed_at: { Args: never; Returns: string }
       redeem_access_code: { Args: { _code: string }; Returns: boolean }
+      verify_access_code: { Args: { _code: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"

@@ -11,17 +11,23 @@ import {
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
-import { ShoppingCart, Trash2, CheckCircle2, AlertCircle, Minus, Plus } from "lucide-react";
+import { ShoppingCart, Trash2, CheckCircle2, AlertCircle, Minus, Plus, LogIn } from "lucide-react";
 import { useCatalogOrder, BRAND_MOQ } from "@/contexts/CatalogOrderContext";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const fmt = (n: number) => `$${Math.round(n).toLocaleString()}`;
 
 export default function CatalogOrderBar() {
   const { lines, totals, increment, decrement, setQuantity, remove, clear } = useCatalogOrder();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [submitOpen, setSubmitOpen] = useState(false);
+  const [signupPromptOpen, setSignupPromptOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [contact, setContact] = useState({ companyName: "", contactName: "", email: "", phone: "", notes: "" });
@@ -150,7 +156,10 @@ export default function CatalogOrderBar() {
                   </Sheet>
                   <Button
                     size="sm"
-                    onClick={() => setSubmitOpen(true)}
+                    onClick={() => {
+                      if (!user) { setSignupPromptOpen(true); return; }
+                      setSubmitOpen(true);
+                    }}
                     className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
                   >
                     Request Quote
@@ -212,6 +221,30 @@ export default function CatalogOrderBar() {
               </div>
             </>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Sign-up prompt for unauthenticated users */}
+      <Dialog open={signupPromptOpen} onOpenChange={setSignupPromptOpen}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <LogIn className="h-5 w-5 text-accent" />
+              Create an account to order
+            </DialogTitle>
+            <DialogDescription>
+              Your order is saved. Sign up (or sign in) to send your quote request — it only takes a minute.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-2 pt-2">
+            <Button
+              className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+              onClick={() => navigate(`/auth?redirect=${encodeURIComponent(location.pathname + location.search)}`)}
+            >
+              Sign up / Sign in
+            </Button>
+            <Button variant="ghost" onClick={() => setSignupPromptOpen(false)}>Cancel</Button>
+          </div>
         </DialogContent>
       </Dialog>
     </>

@@ -22,8 +22,12 @@ const fmt = (n: number) => `$${Math.round(n).toLocaleString()}`;
 
 export default function CatalogOrderBar() {
   const { lines, totals, increment, decrement, setQuantity, remove, clear } = useCatalogOrder();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [submitOpen, setSubmitOpen] = useState(false);
+  const [signupPromptOpen, setSignupPromptOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [contact, setContact] = useState({ companyName: "", contactName: "", email: "", phone: "", notes: "" });

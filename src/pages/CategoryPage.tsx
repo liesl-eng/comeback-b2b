@@ -373,7 +373,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                     <h3 className="text-lg font-semibold text-foreground line-clamp-2 min-h-[3.5rem] leading-snug">
                       {p.name}
                     </h3>
-                    {user && isApproved ? (
+                    {isApproved ? (
                       <div className="flex items-baseline gap-2 mt-auto pt-2">
                         <span className="text-xl font-bold text-foreground">
                           {formatMoney(displayPrice)}
@@ -383,15 +383,6 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                             {formatMoney(msrpForDisplay)}
                           </span>
                         )}
-                      </div>
-                    ) : user && !isApproved ? (
-                      <div className="mt-auto pt-2">
-                        <Link
-                          to={`/unlock?redirect=${encodeURIComponent((typeof window !== "undefined" ? window.location.pathname + window.location.search : "/") + `#${cardId}`)}`}
-                          className="text-sm font-semibold text-accent underline underline-offset-4 hover:no-underline"
-                        >
-                          Enter your access code to unlock pricing
-                        </Link>
                       </div>
                     ) : (
                       <div className="mt-auto pt-2">

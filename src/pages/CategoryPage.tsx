@@ -396,10 +396,10 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                     ) : (
                       <div className="mt-auto pt-2">
                         <Link
-                          to={`/auth?redirect=${encodeURIComponent((typeof window !== "undefined" ? window.location.pathname + window.location.search : "/") + `#${cardId}`)}`}
+                          to={`/unlock?redirect=${encodeURIComponent((typeof window !== "undefined" ? window.location.pathname + window.location.search : "/") + `#${cardId}`)}`}
                           className="text-sm font-semibold text-accent underline underline-offset-4 hover:no-underline"
                         >
-                          Sign in to see pricing
+                          Enter access code to see pricing
                         </Link>
                       </div>
                     )}

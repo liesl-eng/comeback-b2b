@@ -11,10 +11,12 @@ import {
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
-import { ShoppingCart, Trash2, CheckCircle2, AlertCircle, Minus, Plus } from "lucide-react";
+import { ShoppingCart, Trash2, CheckCircle2, AlertCircle, Minus, Plus, LogIn } from "lucide-react";
 import { useCatalogOrder, BRAND_MOQ } from "@/contexts/CatalogOrderContext";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const fmt = (n: number) => `$${Math.round(n).toLocaleString()}`;
 

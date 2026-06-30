@@ -223,6 +223,30 @@ export default function CatalogOrderBar() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Sign-up prompt for unauthenticated users */}
+      <Dialog open={signupPromptOpen} onOpenChange={setSignupPromptOpen}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <LogIn className="h-5 w-5 text-accent" />
+              Create an account to order
+            </DialogTitle>
+            <DialogDescription>
+              Your order is saved. Sign up (or sign in) to send your quote request — it only takes a minute.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-2 pt-2">
+            <Button
+              className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+              onClick={() => navigate(`/auth?redirect=${encodeURIComponent(location.pathname + location.search)}`)}
+            >
+              Sign up / Sign in
+            </Button>
+            <Button variant="ghost" onClick={() => setSignupPromptOpen(false)}>Cancel</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

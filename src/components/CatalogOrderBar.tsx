@@ -156,7 +156,10 @@ export default function CatalogOrderBar() {
                   </Sheet>
                   <Button
                     size="sm"
-                    onClick={() => setSubmitOpen(true)}
+                    onClick={() => {
+                      if (!user) { setSignupPromptOpen(true); return; }
+                      setSubmitOpen(true);
+                    }}
                     className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
                   >
                     Request Quote

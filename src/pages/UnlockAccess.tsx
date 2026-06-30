@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +12,7 @@ const UnlockAccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get("redirect") || "/";
-  const { user, loading, isApproved, approvalLoading, refreshApproval, signOut } = useAuth();
+  const { user, loading, isApproved, approvalLoading, unlockWithCode, signOut } = useAuth();
   const { toast } = useToast();
 
   const [code, setCode] = useState("");
@@ -21,16 +20,10 @@ const UnlockAccess = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate(`/auth?redirect=${encodeURIComponent(`/unlock?redirect=${encodeURIComponent(redirectTo)}`)}`, { replace: true });
-    }
-  }, [loading, user, navigate, redirectTo]);
-
-  useEffect(() => {
-    if (user && isApproved) {
+    if (isApproved) {
       navigate(redirectTo, { replace: true });
     }
-  }, [user, isApproved, navigate, redirectTo]);
+  }, [isApproved, navigate, redirectTo]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,14 +31,13 @@ const UnlockAccess = () => {
     if (!trimmed) return;
     setSubmitting(true);
     setError(null);
-    const { data, error: rpcError } = await supabase.rpc("redeem_access_code", { _code: trimmed });
+    const ok = await unlockWithCode(trimmed);
     setSubmitting(false);
-    if (rpcError || data !== true) {
+    if (!ok) {
       setError("That code doesn't look right. Check your email or contact us at liesl@comebackgoods.com");
       return;
     }
-    await refreshApproval();
-    toast({ title: "Access unlocked", description: "Welcome to Comeback Goods B2B." });
+    toast({ title: "Pricing unlocked", description: "Welcome to Comeback Goods B2B." });
     navigate(redirectTo, { replace: true });
   };
 
@@ -70,7 +62,7 @@ const UnlockAccess = () => {
         <img src={comebackLogo} alt="Comeback Goods" className="h-16 w-16 rounded-full object-cover mb-4" />
         <h1 className="text-3xl font-bold text-primary-foreground">Enter Your Access Code</h1>
         <p className="text-primary-foreground/70 mt-2 text-center max-w-md">
-          Your account is verified. Enter the access code we sent you to unlock pricing and ordering.
+          Enter the code we sent you to unlock B2B pricing. You'll create an account when you're ready to place an order.
         </p>
       </div>
 
@@ -80,7 +72,7 @@ const UnlockAccess = () => {
             <KeyRound className="h-5 w-5 text-accent" />
             Access Code
           </CardTitle>
-          <CardDescription>One-time code provided by Comeback Goods.</CardDescription>
+          <CardDescription>Provided by Comeback Goods.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -104,20 +96,22 @@ const UnlockAccess = () => {
               {submitting ? (
                 <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Unlocking...</>
               ) : (
-                "Unlock Access"
+                "Unlock Pricing"
               )}
             </Button>
             <p className="text-xs text-muted-foreground text-center">
               Don't have a code? Email{" "}
               <a href="mailto:liesl@comebackgoods.com" className="text-accent underline">liesl@comebackgoods.com</a>
             </p>
-            <button
-              type="button"
-              onClick={async () => { await signOut(); navigate("/"); }}
-              className="block mx-auto text-xs text-muted-foreground hover:text-foreground underline"
-            >
-              Sign out
-            </button>
+            {user && (
+              <button
+                type="button"
+                onClick={async () => { await signOut(); navigate("/"); }}
+                className="block mx-auto text-xs text-muted-foreground hover:text-foreground underline"
+              >
+                Sign out
+              </button>
+            )}
           </form>
         </CardContent>
       </Card>

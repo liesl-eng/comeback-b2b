@@ -311,11 +311,10 @@ export default function OrderBar() {
 
   if (totals.items === 0) return null;
 
-  const moqMet = totals.moqMet;
-  const remaining = totals.moqRemaining;
+  const moqMet = true; // MOQ requirement removed — communicated offline
+  const remaining = 0;
 
   const openSubmit = () => {
-    if (!moqMet) return;
     setStep("form");
     setSubmitOpen(true);
   };

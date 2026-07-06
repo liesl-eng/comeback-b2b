@@ -311,11 +311,10 @@ export default function OrderBar() {
 
   if (totals.items === 0) return null;
 
-  const moqMet = totals.moqMet;
-  const remaining = totals.moqRemaining;
+  const moqMet = true; // MOQ requirement removed — communicated offline
+  const remaining = 0;
 
   const openSubmit = () => {
-    if (!moqMet) return;
     setStep("form");
     setSubmitOpen(true);
   };
@@ -466,10 +465,8 @@ export default function OrderBar() {
                 </div>
               </div>
 
-              {/* Center: MOQ progress */}
-              <div className="flex-1 md:max-w-sm">
-                <MoqProgress value={totals.grandTotal} total={ORDER_MOQ} met={moqMet} />
-              </div>
+              <div className="flex-1 md:max-w-sm" />
+
 
               {/* Right: actions */}
               <div className="flex items-center gap-2 justify-end">
@@ -516,9 +513,8 @@ export default function OrderBar() {
               <span>·</span>
               <span className="font-semibold text-foreground">{fmtMoney(totals.grandTotal)} total</span>
             </div>
-            <div className="pt-2">
-              <MoqProgressLight value={totals.grandTotal} total={ORDER_MOQ} met={moqMet} />
-            </div>
+
+
           </SheetHeader>
 
           <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-3">

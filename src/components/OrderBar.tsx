@@ -465,10 +465,8 @@ export default function OrderBar() {
                 </div>
               </div>
 
-              {/* Center: MOQ progress */}
-              <div className="flex-1 md:max-w-sm">
-                <MoqProgress value={totals.grandTotal} total={ORDER_MOQ} met={moqMet} />
-              </div>
+              <div className="flex-1 md:max-w-sm" />
+
 
               {/* Right: actions */}
               <div className="flex items-center gap-2 justify-end">

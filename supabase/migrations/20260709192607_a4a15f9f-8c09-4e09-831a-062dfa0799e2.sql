@@ -1,0 +1,1 @@
+GRANT EXECUTE ON FUNCTION public.last_inventory_refreshed_at() TO anon, authenticated;

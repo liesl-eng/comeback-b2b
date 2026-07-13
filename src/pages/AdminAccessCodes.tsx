@@ -51,14 +51,21 @@ export default function AdminAccessCodes() {
 
   const loadCodes = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("access_codes")
-      .select("*")
-      .order("created_at", { ascending: false });
+    const [{ data, error }, { data: redemptions }] = await Promise.all([
+      supabase.from("access_codes").select("*").order("created_at", { ascending: false }),
+      supabase.rpc("admin_list_code_redemptions"),
+    ]);
     if (error) {
       toast({ title: "Failed to load codes", description: error.message, variant: "destructive" });
     } else {
       setCodes((data as AccessCode[]) || []);
+    }
+    if (redemptions) {
+      const map: Record<string, string> = {};
+      for (const r of redemptions as Array<{ code: string; email: string | null }>) {
+        if (r.email) map[r.code.toUpperCase()] = r.email;
+      }
+      setRedemptionEmails(map);
     }
     setLoading(false);
   }, [toast]);

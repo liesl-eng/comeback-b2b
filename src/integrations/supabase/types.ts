@@ -433,6 +433,15 @@ export type Database = {
       }
     }
     Functions: {
+      admin_list_code_redemptions: {
+        Args: never
+        Returns: {
+          code: string
+          email: string
+          redeemed_at: string
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

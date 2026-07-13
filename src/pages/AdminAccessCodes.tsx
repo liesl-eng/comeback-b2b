@@ -38,7 +38,7 @@ export default function AdminAccessCodes() {
   const [loading, setLoading] = useState(true);
   const [assignTo, setAssignTo] = useState("");
   const [creating, setCreating] = useState(false);
-  const [userEmails, setUserEmails] = useState<Record<string, string>>({});
+  const [redemptionEmails, setRedemptionEmails] = useState<Record<string, string>>({});
 
   useEffect(() => {
     (async () => {
@@ -51,14 +51,21 @@ export default function AdminAccessCodes() {
 
   const loadCodes = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("access_codes")
-      .select("*")
-      .order("created_at", { ascending: false });
+    const [{ data, error }, { data: redemptions }] = await Promise.all([
+      supabase.from("access_codes").select("*").order("created_at", { ascending: false }),
+      supabase.rpc("admin_list_code_redemptions"),
+    ]);
     if (error) {
       toast({ title: "Failed to load codes", description: error.message, variant: "destructive" });
     } else {
       setCodes((data as AccessCode[]) || []);
+    }
+    if (redemptions) {
+      const map: Record<string, string> = {};
+      for (const r of redemptions as Array<{ code: string; email: string | null }>) {
+        if (r.email) map[r.code.toUpperCase()] = r.email;
+      }
+      setRedemptionEmails(map);
     }
     setLoading(false);
   }, [toast]);
@@ -186,7 +193,7 @@ export default function AdminAccessCodes() {
                       <TableCell className="font-mono font-bold">{c.code}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">{c.assigned_to_email || "—"}</TableCell>
                       <TableCell>{statusBadge(c.status)}</TableCell>
-                      <TableCell className="text-xs font-mono text-muted-foreground">{c.used_by_user_id ? c.used_by_user_id.slice(0, 8) : "—"}</TableCell>
+                      <TableCell className="text-xs text-muted-foreground">{redemptionEmails[c.code.toUpperCase()] || (c.used_by_user_id ? <span className="font-mono">{c.used_by_user_id.slice(0, 8)}</span> : "—")}</TableCell>
                       <TableCell className="text-xs text-muted-foreground">{c.used_at ? new Date(c.used_at).toLocaleString() : "—"}</TableCell>
                       <TableCell className="text-xs text-muted-foreground">{new Date(c.created_at).toLocaleDateString()}</TableCell>
                       <TableCell className="text-right">

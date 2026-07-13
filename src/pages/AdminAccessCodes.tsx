@@ -38,7 +38,7 @@ export default function AdminAccessCodes() {
   const [loading, setLoading] = useState(true);
   const [assignTo, setAssignTo] = useState("");
   const [creating, setCreating] = useState(false);
-  const [userEmails, setUserEmails] = useState<Record<string, string>>({});
+  const [redemptionEmails, setRedemptionEmails] = useState<Record<string, string>>({});
 
   useEffect(() => {
     (async () => {

@@ -43,6 +43,9 @@ const HIDDEN_PRODUCTS: RegExp[] = [
   /Hem\s+Pomme\s+Light\s+Cork/i,
 ];
 
+// Brands hidden from the storefront (still synced/imported on the admin side).
+const HIDDEN_BRANDS = new Set(["sei"]);
+
 function applyOverrides(rows: SheetRow[]): SheetRow[] {
   return rows
     .map((r) => {
@@ -56,7 +59,9 @@ function applyOverrides(rows: SheetRow[]): SheetRow[] {
     // Only Lighting, Mirrors, and Tables are shown across the site.
     .filter((r) => ALLOWED_CATEGORIES.has((r.category ?? "").trim().toLowerCase()))
     // Exclude permanently hidden products.
-    .filter((r) => !HIDDEN_PRODUCTS.some((re) => re.test(r.name)));
+    .filter((r) => !HIDDEN_PRODUCTS.some((re) => re.test(r.name)))
+    // Exclude hidden brands from the front end.
+    .filter((r) => !HIDDEN_BRANDS.has((r.brand ?? "").trim().toLowerCase()));
 
 }
 

@@ -11,15 +11,21 @@ import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 
 const SHEET_ID = "1ItM29QVpYh85ESpMLWVJjg13RP-ACHkSPRcGtL21yl8";
 
-const DEFAULT_BRANDS = [
-  "Modus Furniture",
-  "Arteriors Home",
-  "Ferm Living",
-  "Havenly",
-  "Hem",
-  "Vesta",
-  "Castlery",
-];
+// Tabs are addressed by gid so renaming a tab in the sheet doesn't break sync.
+const SHEET_GIDS: Record<string, string> = {
+  "Modus Furniture": "2113198924",
+  "Ferm Living": "1687042732",
+  "Arteriors Home": "585735142",
+  "Havenly": "919282075",
+  "Hem": "494759443",
+  "ART Home Furnishings": "1126365801",
+  "Hews Home": "1322353551",
+  "Bassett Mirror": "681217923",
+  "SEI": "810215814",
+};
+
+const DEFAULT_BRANDS = Object.keys(SHEET_GIDS);
+
 
 // --- categorize (mirrors src/lib/productCategory.ts) ---
 const FURNITURE = ["nightstand","bench","console","ottoman","stool","side table","end table","accent table","coffee table","dresser","cabinet","sideboard","armoire","wardrobe","credenza","buffet","bookcase","hutch","table","desk"];

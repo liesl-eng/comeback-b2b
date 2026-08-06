@@ -299,11 +299,14 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {visible.map((p, i) => {
-              // Force 75% off MSRP across the catalog UI
-              const msrpForDisplay = p.msrp ?? p.price ?? null;
-              const displayPrice =
-                msrpForDisplay != null ? Math.round(msrpForDisplay * 0.25 * 100) / 100 : p.price;
-              const pct = msrpForDisplay != null ? 75 : computeDiscountPct(p);
+              // Price sourced from "Final Price (MIN Rule)" (col K), discount from col L
+              const msrpForDisplay = p.msrp ?? null;
+              const displayPrice = p.finalPrice ?? p.price ?? null;
+              const pct =
+                p.finalDiscountPct != null
+                  ? Math.round(p.finalDiscountPct)
+                  : computeDiscountPct(p);
+
               const isMeridian = /meridian/i.test(p.name);
               const productId = `${p.brand}::${p.name}`;
               const cardId = `p-${slugify(productId)}`;

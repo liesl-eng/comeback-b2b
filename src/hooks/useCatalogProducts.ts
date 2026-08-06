@@ -29,6 +29,9 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /^sterling table top/i, url: "https://mopio.com/cdn/shop/files/Oak_PNG.jpg" },
 ];
 
+// Only these categories are surfaced anywhere on the site.
+const ALLOWED_CATEGORIES = new Set(["lighting", "mirrors", "tables"]);
+
 // Category overrides — fix miscategorized products from the sheet.
 const CATEGORY_OVERRIDES: { match: RegExp; category: string }[] = [
   // Mopio products that are tables but got auto-classified as Lighting.
@@ -45,8 +48,9 @@ function applyOverrides(rows: SheetRow[]): SheetRow[] {
       if (catOv) out = { ...out, category: catOv.category };
       return out;
     })
-    // Accessories are excluded from all site views and filters.
-    .filter((r) => (r.category ?? "").trim().toLowerCase() !== "accessories");
+    // Only Lighting, Mirrors, and Tables are shown across the site.
+    .filter((r) => ALLOWED_CATEGORIES.has((r.category ?? "").trim().toLowerCase()));
+
 }
 
 

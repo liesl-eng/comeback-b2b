@@ -2,24 +2,23 @@
 
 export const PRODUCT_SHEET_ID = "1ItM29QVpYh85ESpMLWVJjg13RP-ACHkSPRcGtL21yl8";
 
-export type BrandTab =
-  | "Mercana"
-  | "Modus Furniture"
-  | "Arteriors Home"
-  | "Ferm Living"
-  | "Havenly"
-  | "Hem"
-  | "Vesta"
-  | "Castlery";
+// Tabs are addressed by gid so renaming a tab in the sheet doesn't break sync.
+export const SHEET_GIDS: Record<string, string> = {
+  "Modus Furniture": "2113198924",
+  "Ferm Living": "1687042732",
+  "Arteriors Home": "585735142",
+  "Havenly": "919282075",
+  "Hem": "494759443",
+  "ART Home Furnishings": "1126365801",
+  "Hews Home": "1322353551",
+  "Bassett Mirror": "681217923",
+  "SEI": "810215814",
+};
 
-export const BRAND_TABS: BrandTab[] = [
-  "Modus Furniture",
-  "Ferm Living",
-  "Arteriors Home",
-  "Havenly",
-  "Hem",
-  "Castlery",
-];
+export type BrandTab = keyof typeof SHEET_GIDS & string;
+
+export const BRAND_TABS: BrandTab[] = Object.keys(SHEET_GIDS);
+
 
 export interface SheetRow {
   name: string;

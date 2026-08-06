@@ -97,14 +97,6 @@ const App = () => {
                     }
                   />
                   <Route
-                    path="/admin/import"
-                    element={
-                      <ProtectedRoute>
-                        <AdminImport />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
                     path="/admin/imports"
                     element={
                       <ProtectedRoute>

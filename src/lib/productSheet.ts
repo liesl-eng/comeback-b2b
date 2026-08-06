@@ -129,6 +129,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
   const iImageFile = idx("Image Filename");
   const iPrice = idx("Price");
   const iMsrp = idx("MSRP");
+  const iWholesale = idx("Wholesale");
   const iDiscount = idx("Discount %");
   const iUnits = idx("Units Available");
   const iCategory = idx("Category");

@@ -1,0 +1,2 @@
+DELETE FROM public.product_import_staging WHERE run_id IN (SELECT id FROM public.product_import_runs WHERE brand IN ('Vesta','Castlery','Mercana') AND status <> 'applied');
+DELETE FROM public.product_import_runs WHERE brand IN ('Vesta','Castlery','Mercana') AND status <> 'applied';

@@ -33,11 +33,9 @@ import LightingProgram from "./pages/LightingProgram";
 import MirrorProgram from "./pages/MirrorProgram";
 import MeridianLamp from "./pages/MeridianLamp";
 
-import Seating from "./pages/Seating";
 import Tables from "./pages/Tables";
 import All from "./pages/All";
-import Beds from "./pages/Beds";
-import Cabinets from "./pages/Cabinets";
+
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 

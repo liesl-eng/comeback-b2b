@@ -28,6 +28,7 @@ export interface SheetRow {
   imageFilename: string | null;
   price: number | null;
   msrp: number | null;
+  wholesale: number | null;
   discountPct: number | null;
   unitsAvailable: number;
   category: string | null;

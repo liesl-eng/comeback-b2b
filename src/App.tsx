@@ -17,7 +17,7 @@ import Index from "./pages/Index";
 
 import Favorites from "./pages/Favorites";
 import About from "./pages/About";
-import AdminImport from "./pages/AdminImport";
+
 import AdminProducts from "./pages/AdminProducts";
 import AdminImports from "./pages/AdminImports";
 import AdminAccessCodes from "./pages/AdminAccessCodes";
@@ -93,14 +93,6 @@ const App = () => {
                     element={
                       <ProtectedRoute>
                         <AdminProducts />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/admin/import"
-                    element={
-                      <ProtectedRoute>
-                        <AdminImport />
                       </ProtectedRoute>
                     }
                   />

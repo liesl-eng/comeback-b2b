@@ -36,14 +36,17 @@ const CATEGORY_OVERRIDES: { match: RegExp; category: string }[] = [
 ];
 
 function applyOverrides(rows: SheetRow[]): SheetRow[] {
-  return rows.map((r) => {
-    const imgOv = IMAGE_OVERRIDES.find((o) => o.match.test(r.name));
-    const catOv = CATEGORY_OVERRIDES.find((o) => o.match.test(r.name));
-    let out = r;
-    if (imgOv) out = { ...out, imageUrl: imgOv.url };
-    if (catOv) out = { ...out, category: catOv.category };
-    return out;
-  });
+  return rows
+    .map((r) => {
+      const imgOv = IMAGE_OVERRIDES.find((o) => o.match.test(r.name));
+      const catOv = CATEGORY_OVERRIDES.find((o) => o.match.test(r.name));
+      let out = r;
+      if (imgOv) out = { ...out, imageUrl: imgOv.url };
+      if (catOv) out = { ...out, category: catOv.category };
+      return out;
+    })
+    // Accessories are excluded from all site views and filters.
+    .filter((r) => (r.category ?? "").trim().toLowerCase() !== "accessories");
 }
 
 

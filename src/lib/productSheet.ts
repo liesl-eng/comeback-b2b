@@ -28,6 +28,7 @@ export interface SheetRow {
   imageFilename: string | null;
   price: number | null;
   msrp: number | null;
+  wholesale: number | null;
   discountPct: number | null;
   unitsAvailable: number;
   category: string | null;
@@ -128,6 +129,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
   const iImageFile = idx("Image Filename");
   const iPrice = idx("Price");
   const iMsrp = idx("MSRP");
+  const iWholesale = idx("Wholesale");
   const iDiscount = idx("Discount %");
   const iUnits = idx("Units Available");
   const iCategory = idx("Category");
@@ -151,6 +153,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
       imageFilename: iImageFile >= 0 ? cleanStr(r[iImageFile]) : null,
       price: iPrice >= 0 ? cleanMoney(r[iPrice]) : null,
       msrp: iMsrp >= 0 ? cleanMoney(r[iMsrp]) : null,
+      wholesale: iWholesale >= 0 ? cleanMoney(r[iWholesale]) : null,
       discountPct: iDiscount >= 0 ? cleanPct(r[iDiscount]) : null,
       unitsAvailable: iUnits >= 0 ? cleanInt(r[iUnits]) : 0,
       category: iCategory >= 0 ? cleanStr(r[iCategory]) : null,

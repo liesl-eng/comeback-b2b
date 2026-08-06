@@ -45,8 +45,9 @@ function applyOverrides(rows: SheetRow[]): SheetRow[] {
       if (catOv) out = { ...out, category: catOv.category };
       return out;
     })
-    // Accessories are excluded from all site views and filters.
-    .filter((r) => (r.category ?? "").trim().toLowerCase() !== "accessories");
+    // Only Lighting, Mirrors, and Tables are shown across the site.
+    .filter((r) => ALLOWED_CATEGORIES.has((r.category ?? "").trim().toLowerCase()));
+
 }
 
 

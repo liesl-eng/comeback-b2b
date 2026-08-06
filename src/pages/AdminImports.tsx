@@ -150,9 +150,28 @@ const AdminImports = () => {
     }
   }
 
+  async function purgePendingRuns() {
+    const { data: stale, error } = await supabase
+      .from("product_import_runs")
+      .select("id")
+      .not("status", "in", "(applied,rejected)");
+    if (error) throw error;
+    const ids = (stale ?? []).map((r) => r.id);
+    if (ids.length === 0) return;
+    const { error: sErr } = await supabase.from("product_import_staging").delete().in("run_id", ids);
+    if (sErr) throw sErr;
+    const { error: rErr } = await supabase.from("product_import_runs").delete().in("id", ids);
+    if (rErr) throw rErr;
+  }
+
   async function triggerSync() {
     setLoading(true);
     try {
+      // Clear any older un-reviewed runs so only the newest sync shows
+      await purgePendingRuns();
+      setRuns([]);
+      setStaging({});
+      setExpanded({});
       const { error } = await supabase.functions.invoke("sync-products-from-sheet", {});
       if (error) throw error;
       toast({ title: "Sync started", description: "Refreshing runs…" });
@@ -163,6 +182,7 @@ const AdminImports = () => {
       setLoading(false);
     }
   }
+
 
   const pendingCount = useMemo(() => runs.filter((r) => r.status === "pending_review").length, [runs]);
 

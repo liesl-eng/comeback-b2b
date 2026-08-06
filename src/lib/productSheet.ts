@@ -153,6 +153,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
       imageFilename: iImageFile >= 0 ? cleanStr(r[iImageFile]) : null,
       price: iPrice >= 0 ? cleanMoney(r[iPrice]) : null,
       msrp: iMsrp >= 0 ? cleanMoney(r[iMsrp]) : null,
+      wholesale: iWholesale >= 0 ? cleanMoney(r[iWholesale]) : null,
       discountPct: iDiscount >= 0 ? cleanPct(r[iDiscount]) : null,
       unitsAvailable: iUnits >= 0 ? cleanInt(r[iUnits]) : 0,
       category: iCategory >= 0 ? cleanStr(r[iCategory]) : null,

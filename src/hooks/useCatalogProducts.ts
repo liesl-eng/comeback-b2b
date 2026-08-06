@@ -40,7 +40,7 @@ const CATEGORY_OVERRIDES: { match: RegExp; category: string }[] = [
 
 // Permanently hidden products (matched by name substring, case-insensitive).
 const HIDDEN_PRODUCTS: RegExp[] = [
-  /Hem\s+Pomme\s+Light\s+Cork/i,
+  /pomme\s+(light|dark)\s+cork/i,
 ];
 
 // Brands hidden from the storefront (still synced/imported on the admin side).

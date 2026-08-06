@@ -2,24 +2,23 @@
 
 export const PRODUCT_SHEET_ID = "1ItM29QVpYh85ESpMLWVJjg13RP-ACHkSPRcGtL21yl8";
 
-export type BrandTab =
-  | "Mercana"
-  | "Modus Furniture"
-  | "Arteriors Home"
-  | "Ferm Living"
-  | "Havenly"
-  | "Hem"
-  | "Vesta"
-  | "Castlery";
+// Tabs are addressed by gid so renaming a tab in the sheet doesn't break sync.
+export const SHEET_GIDS: Record<string, string> = {
+  "Modus Furniture": "2113198924",
+  "Ferm Living": "1687042732",
+  "Arteriors Home": "585735142",
+  "Havenly": "919282075",
+  "Hem": "494759443",
+  "ART Home Furnishings": "1126365801",
+  "Hews Home": "1322353551",
+  "Bassett Mirror": "681217923",
+  "SEI": "810215814",
+};
 
-export const BRAND_TABS: BrandTab[] = [
-  "Modus Furniture",
-  "Ferm Living",
-  "Arteriors Home",
-  "Havenly",
-  "Hem",
-  "Castlery",
-];
+export type BrandTab = keyof typeof SHEET_GIDS & string;
+
+export const BRAND_TABS: BrandTab[] = Object.keys(SHEET_GIDS);
+
 
 export interface SheetRow {
   name: string;
@@ -111,9 +110,11 @@ function cleanStr(raw: string | undefined): string | null {
 }
 
 export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
-  const url = `https://docs.google.com/spreadsheets/d/${PRODUCT_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(
-    tab,
-  )}&_=${Date.now()}`;
+  const gid = SHEET_GIDS[tab];
+  const selector = gid
+    ? `gid=${gid}`
+    : `sheet=${encodeURIComponent(tab)}`;
+  const url = `https://docs.google.com/spreadsheets/d/${PRODUCT_SHEET_ID}/gviz/tq?tqx=out:csv&${selector}&_=${Date.now()}`;
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error(`Failed to fetch sheet "${tab}" (HTTP ${res.status})`);
   const text = await res.text();

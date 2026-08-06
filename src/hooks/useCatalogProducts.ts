@@ -29,6 +29,9 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /^sterling table top/i, url: "https://mopio.com/cdn/shop/files/Oak_PNG.jpg" },
 ];
 
+// Only these categories are surfaced anywhere on the site.
+const ALLOWED_CATEGORIES = new Set(["lighting", "mirrors", "tables"]);
+
 // Category overrides — fix miscategorized products from the sheet.
 const CATEGORY_OVERRIDES: { match: RegExp; category: string }[] = [
   // Mopio products that are tables but got auto-classified as Lighting.

@@ -378,15 +378,19 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                     </h3>
                     {isApproved ? (
                       <div className="flex items-baseline gap-2 mt-auto pt-2">
-                        <span className="text-xl font-bold text-foreground">
-                          {formatMoney(displayPrice)}
-                        </span>
                         {msrpForDisplay != null && displayPrice != null && msrpForDisplay > displayPrice && (
                           <span className="text-sm text-muted-foreground line-through">
                             {formatMoney(msrpForDisplay)}
                           </span>
                         )}
+                        <span className="text-xl font-bold text-foreground">
+                          {formatMoney(displayPrice)}
+                        </span>
+                        {pct != null && pct > 0 && (
+                          <span className="text-sm text-muted-foreground">({pct}% off)</span>
+                        )}
                       </div>
+
                     ) : (
                       <div className="mt-auto pt-2">
                         <Link

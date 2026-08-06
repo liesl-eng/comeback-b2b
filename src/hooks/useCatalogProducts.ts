@@ -38,6 +38,11 @@ const CATEGORY_OVERRIDES: { match: RegExp; category: string }[] = [
   { match: /^quin (coffee|side) table/i, category: "Tables" },
 ];
 
+// Permanently hidden products (matched by name substring, case-insensitive).
+const HIDDEN_PRODUCTS: RegExp[] = [
+  /Hem\s+Pomme\s+Light\s+Cork/i,
+];
+
 function applyOverrides(rows: SheetRow[]): SheetRow[] {
   return rows
     .map((r) => {
@@ -49,7 +54,9 @@ function applyOverrides(rows: SheetRow[]): SheetRow[] {
       return out;
     })
     // Only Lighting, Mirrors, and Tables are shown across the site.
-    .filter((r) => ALLOWED_CATEGORIES.has((r.category ?? "").trim().toLowerCase()));
+    .filter((r) => ALLOWED_CATEGORIES.has((r.category ?? "").trim().toLowerCase()))
+    // Exclude permanently hidden products.
+    .filter((r) => !HIDDEN_PRODUCTS.some((re) => re.test(r.name)));
 
 }
 

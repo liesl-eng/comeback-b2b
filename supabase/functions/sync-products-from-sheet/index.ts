@@ -105,7 +105,9 @@ interface SheetRow {
 }
 
 async function fetchTab(tab: string): Promise<SheetRow[]> {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tab)}&_=${Date.now()}`;
+  const gid = SHEET_GIDS[tab];
+  const selector = gid ? `gid=${gid}` : `sheet=${encodeURIComponent(tab)}`;
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&${selector}&_=${Date.now()}`;
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error(`Fetch ${tab} failed: HTTP ${res.status}`);
   const text = await res.text();

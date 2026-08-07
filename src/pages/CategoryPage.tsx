@@ -180,6 +180,13 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
     return arr;
   }, [inCategory, activeBrand, sortKey]);
 
+  const totalUnits = useMemo(
+    () =>
+      visible.reduce((sum, p) => sum + (p.unitsAvailable && Number.isFinite(p.unitsAvailable) ? p.unitsAvailable : 0), 0),
+    [visible],
+  );
+
+
 
 
   return (
@@ -253,22 +260,27 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                   </button>
                 );
               })}
-              <div className="ml-auto flex items-center gap-2">
-                <label htmlFor="sort" className="text-sm text-muted-foreground whitespace-nowrap">
-                  Sort by:
-                </label>
-                <select
-                  id="sort"
-                  value={sortKey}
-                  onChange={(e) => setSortKey(e.target.value as SortKey)}
-                  className="border border-border bg-background text-foreground rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-                >
-                  {SORT_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>
-                      {o.label}
-                    </option>
-                  ))}
-                </select>
+              <div className="ml-auto flex flex-col items-end gap-0.5">
+                <div className="flex items-center gap-2">
+                  <label htmlFor="sort" className="text-xs text-muted-foreground whitespace-nowrap">
+                    Sort by:
+                  </label>
+                  <select
+                    id="sort"
+                    value={sortKey}
+                    onChange={(e) => setSortKey(e.target.value as SortKey)}
+                    className="border border-border bg-background text-foreground rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-accent"
+                  >
+                    {SORT_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">
+                  {totalUnits.toLocaleString()} {totalUnits === 1 ? "unit" : "units"} in stock
+                </span>
               </div>
             </div>
           </div>

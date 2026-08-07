@@ -196,6 +196,9 @@ const CATEGORY_NAV = [
   { label: "Lighting", to: "/lighting", match: ["/lighting"] },
   { label: "Mirrors", to: "/mirrors", match: ["/mirrors", "/mirror-program"] },
   { label: "Tables", to: "/tables", match: ["/tables"] },
+  { label: "Beds", to: "/beds", match: ["/beds"] },
+  { label: "Dressers", to: "/dressers", match: ["/dressers"] },
+  { label: "Seating", to: "/seating", match: ["/seating"] },
 ];
 
 

@@ -23,15 +23,18 @@ const SORT_OPTIONS: { value: SortKey; label: string }[] = [
 ];
 
 
-const CATEGORY_NAV: { name: "All" | "Lighting" | "Mirrors" | "Tables"; path: string }[] = [
+const CATEGORY_NAV: { name: "All" | "Lighting" | "Mirrors" | "Tables" | "Beds" | "Dressers" | "Seating"; path: string }[] = [
   { name: "All", path: "/all" },
   { name: "Lighting", path: "/lighting" },
   { name: "Mirrors", path: "/mirrors" },
   { name: "Tables", path: "/tables" },
+  { name: "Beds", path: "/beds" },
+  { name: "Dressers", path: "/dressers" },
+  { name: "Seating", path: "/seating" },
 ];
 
 interface CategoryPageProps {
-  category: "All" | "Lighting" | "Mirrors" | "Tables";
+  category: "All" | "Lighting" | "Mirrors" | "Tables" | "Beds" | "Dressers" | "Seating";
   title: string;
   subtitle?: string;
 }

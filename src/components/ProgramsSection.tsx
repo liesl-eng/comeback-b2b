@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, RectangleVertical, Lightbulb, Table2, Layers } from "lucide-react";
+import { ArrowRight, RectangleVertical, Lightbulb, Table2, Layers, Bed, Archive, Armchair } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 type Program = {
@@ -52,6 +52,33 @@ const programs: Program[] = [
     badge: "Coffee · Side · Dining",
     cta: "Shop Tables",
     path: "/tables",
+    accent: "from-slate-300 via-slate-400 to-slate-500",
+  },
+  {
+    icon: Bed,
+    title: "Beds",
+    desc: "Beds and headboards in twin, queen, and king sizes.",
+    badge: "Queen · King · Headboards",
+    cta: "Shop Beds",
+    path: "/beds",
+    accent: "from-slate-300 via-slate-400 to-slate-500",
+  },
+  {
+    icon: Archive,
+    title: "Dressers",
+    desc: "Dressers, chests, and storage cabinets.",
+    badge: "Chests · Cabinets · Storage",
+    cta: "Shop Dressers",
+    path: "/dressers",
+    accent: "from-slate-300 via-slate-400 to-slate-500",
+  },
+  {
+    icon: Armchair,
+    title: "Seating",
+    desc: "Chairs, stools, benches, and ottomans.",
+    badge: "Chairs · Stools · Benches",
+    cta: "Shop Seating",
+    path: "/seating",
     accent: "from-slate-300 via-slate-400 to-slate-500",
   },
 ];

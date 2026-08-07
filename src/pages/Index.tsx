@@ -125,11 +125,12 @@ const Index = () => {
             <div>
               <p className="font-bold text-foreground mb-3">Categories</p>
               <ul className="space-y-2 text-muted-foreground">
-                <li><Link to="/mirrors" className="hover:text-accent transition-colors">Mirrors</Link></li>
                 <li><Link to="/lighting" className="hover:text-accent transition-colors">Lighting</Link></li>
-                
+                <li><Link to="/mirrors" className="hover:text-accent transition-colors">Mirrors</Link></li>
                 <li><Link to="/tables" className="hover:text-accent transition-colors">Tables</Link></li>
-                
+                <li><Link to="/beds" className="hover:text-accent transition-colors">Beds</Link></li>
+                <li><Link to="/dressers" className="hover:text-accent transition-colors">Dressers</Link></li>
+                <li><Link to="/seating" className="hover:text-accent transition-colors">Seating</Link></li>
 
               </ul>
             </div>

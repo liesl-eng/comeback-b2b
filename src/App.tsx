@@ -33,6 +33,9 @@ import LightingProgram from "./pages/LightingProgram";
 import MirrorProgram from "./pages/MirrorProgram";
 import MeridianLamp from "./pages/MeridianLamp";
 
+import Beds from "./pages/Beds";
+import Dressers from "./pages/Dressers";
+import Seating from "./pages/Seating";
 import Tables from "./pages/Tables";
 import All from "./pages/All";
 
@@ -78,10 +81,11 @@ const App = () => {
                   <Route path="/mirror-program" element={<Navigate to="/mirrors" replace />} />
                   <Route path="/Mirror-Program" element={<Navigate to="/mirrors" replace />} />
                   <Route path="/rechargeable-table-lamps" element={<MeridianLamp />} />
-                  <Route path="/seating" element={<Navigate to="/all" replace />} />
+                  <Route path="/beds" element={<Beds />} />
+                  <Route path="/dressers" element={<Dressers />} />
+                  <Route path="/seating" element={<Seating />} />
                   <Route path="/tables" element={<Tables />} />
                   <Route path="/all" element={<All />} />
-                  <Route path="/beds" element={<Navigate to="/all" replace />} />
                   <Route path="/cabinets" element={<Navigate to="/all" replace />} />
 
 

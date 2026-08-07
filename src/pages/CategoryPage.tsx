@@ -55,6 +55,11 @@ function computeDiscountPct(row: SheetRow): number | null {
   return null;
 }
 
+// Effective display price: always prefer Column K (finalPrice) when available.
+function effectivePrice(row: SheetRow): number | null {
+  return row.finalPrice ?? row.price ?? null;
+}
+
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {

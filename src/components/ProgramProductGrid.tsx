@@ -42,12 +42,16 @@ interface CardProduct {
   name: string;
   displayBrand: string;
   msrp: number;
+  finalPrice: number | null;
   unitsAvailable: number;
   imageUrl: string | null;
 }
 
-function calcYourPrice(msrp: number): number {
-  return Math.round(msrp * 0.25);
+// Effective display price: always prefer Column K (finalPrice) when available,
+// otherwise fall back to the 75%-off-MSRP calculation.
+function calcYourPrice(p: CardProduct): number {
+  if (p.finalPrice != null) return p.finalPrice;
+  return Math.round(p.msrp * 0.25);
 }
 
 function formatUsd(n: number): string {

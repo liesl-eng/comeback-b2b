@@ -363,7 +363,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                           brand: p.brand,
                           imageUrl: p.imageUrl,
                           msrp: p.msrp,
-                          price: p.price,
+                          price: displayPrice,
                         });
                       }}
                       className="absolute top-3 right-3 h-9 w-9 rounded-full bg-background/90 backdrop-blur border border-border shadow-sm flex items-center justify-center hover:bg-background transition-colors"

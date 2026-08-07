@@ -73,12 +73,12 @@ const programs: Program[] = [
     accent: "from-slate-300 via-slate-400 to-slate-500",
   },
   {
-    icon: Armchair,
-    title: "Seating",
-    desc: "Chairs, stools, benches, and ottomans.",
-    badge: "Chairs · Stools · Benches",
-    cta: "Shop Seating",
-    path: "/seating",
+    icon: Boxes,
+    title: "Storage",
+    desc: "Shelving, bookcases, sideboards, and storage cabinets.",
+    badge: "Shelving · Bookcases · Cabinets",
+    cta: "Shop Storage",
+    path: "/storage",
     accent: "from-slate-300 via-slate-400 to-slate-500",
   },
 ];

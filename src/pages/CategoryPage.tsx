@@ -55,6 +55,11 @@ function computeDiscountPct(row: SheetRow): number | null {
   return null;
 }
 
+// Effective display price: always prefer Column K (finalPrice) when available.
+function effectivePrice(row: SheetRow): number | null {
+  return row.finalPrice ?? row.price ?? null;
+}
+
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
@@ -148,7 +153,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
         const ha = hemRank(a);
         const hb = hemRank(b);
         if (ha !== hb) return ha - hb;
-        return num(a.price, Infinity) - num(b.price, Infinity);
+        return num(effectivePrice(a), Infinity) - num(effectivePrice(b), Infinity);
 
       });
       return arr;
@@ -159,9 +164,9 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
     arr.sort((a, b) => {
       switch (sortKey) {
         case "price-asc":
-          return num(a.price, Infinity) - num(b.price, Infinity);
+          return num(effectivePrice(a), Infinity) - num(effectivePrice(b), Infinity);
         case "price-desc":
-          return num(b.price, -Infinity) - num(a.price, -Infinity);
+          return num(effectivePrice(b), -Infinity) - num(effectivePrice(a), -Infinity);
         case "qty-asc":
           return num(a.unitsAvailable, Infinity) - num(b.unitsAvailable, Infinity);
         case "qty-desc":
@@ -358,7 +363,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                           brand: p.brand,
                           imageUrl: p.imageUrl,
                           msrp: p.msrp,
-                          price: p.price,
+                          price: displayPrice,
                         });
                       }}
                       className="absolute top-3 right-3 h-9 w-9 rounded-full bg-background/90 backdrop-blur border border-border shadow-sm flex items-center justify-center hover:bg-background transition-colors"

@@ -109,7 +109,7 @@ const ProductImage = ({
 
 
 const ProductCard = ({ p }: { p: CardProduct }) => {
-  const yourPrice = calcYourPrice(p.msrp);
+  const yourPrice = calcYourPrice(p);
   const itemId = `${p.displayBrand}::${p.name}`.toLowerCase().replace(/\s+/g, "_");
   const cardId = `p-${itemId.replace(/[^a-z0-9]+/g, "-")}`;
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -309,6 +309,7 @@ const ProgramProductGrid = ({ config }: { config: ProgramProductGridConfig }) =>
       name: r.name,
       displayBrand: brand.displayBrand,
       msrp: r.msrp as number,
+      finalPrice: r.finalPrice,
       unitsAvailable: r.unitsAvailable,
       imageUrl: brand.imageOverride?.(r.name) ?? r.imageUrl,
     }));
@@ -317,12 +318,13 @@ const ProgramProductGrid = ({ config }: { config: ProgramProductGridConfig }) =>
         name: f.name,
         displayBrand: brand.displayBrand,
         msrp: f.msrp,
+        finalPrice: null,
         unitsAvailable: f.unitsAvailable,
         imageUrl: brand.imageOverride?.(f.name) ?? f.imageUrl ?? null,
       }));
     }
     if (sortKey === "price_asc") {
-      cards.sort((a, b) => calcYourPrice(a.msrp) - calcYourPrice(b.msrp));
+      cards.sort((a, b) => calcYourPrice(a) - calcYourPrice(b));
     } else if (sortKey === "qty_desc") {
       cards.sort((a, b) => b.unitsAvailable - a.unitsAvailable);
     } else {

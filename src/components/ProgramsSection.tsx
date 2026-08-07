@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, RectangleVertical, Lightbulb, Table2, Layers, Bed, Archive, Armchair } from "lucide-react";
+import { ArrowRight, RectangleVertical, Lightbulb, Table2, Layers, Bed, Archive, Boxes } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 type Program = {

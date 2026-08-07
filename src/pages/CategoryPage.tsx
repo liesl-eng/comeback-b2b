@@ -260,7 +260,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                   </button>
                 );
               })}
-              <div className="ml-auto flex flex-col items-center gap-0.5">
+              <div className="ml-auto flex flex-col items-end gap-0.5">
                 <div className="flex items-center gap-2">
                   <label htmlFor="sort" className="text-xs text-muted-foreground whitespace-nowrap">
                     Sort by:
@@ -278,7 +278,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                     ))}
                   </select>
                 </div>
-                <span className="text-xs text-muted-foreground font-medium text-center">
+                <span className="text-xs text-muted-foreground font-medium">
                   {totalUnits.toLocaleString()} {totalUnits === 1 ? "unit" : "units"} ready to ship
                 </span>
               </div>

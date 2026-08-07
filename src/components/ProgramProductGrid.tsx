@@ -202,7 +202,7 @@ const CATEGORY_NAV = [
   { label: "Tables", to: "/tables", match: ["/tables"] },
   { label: "Beds", to: "/beds", match: ["/beds"] },
   { label: "Dressers", to: "/dressers", match: ["/dressers"] },
-  { label: "Seating", to: "/seating", match: ["/seating"] },
+  { label: "Storage", to: "/storage", match: ["/storage"] },
 ];
 
 

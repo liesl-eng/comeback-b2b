@@ -35,7 +35,7 @@ import MeridianLamp from "./pages/MeridianLamp";
 
 import Beds from "./pages/Beds";
 import Dressers from "./pages/Dressers";
-import Seating from "./pages/Seating";
+import Storage from "./pages/Storage";
 import Tables from "./pages/Tables";
 import All from "./pages/All";
 
@@ -83,7 +83,8 @@ const App = () => {
                   <Route path="/rechargeable-table-lamps" element={<MeridianLamp />} />
                   <Route path="/beds" element={<Beds />} />
                   <Route path="/dressers" element={<Dressers />} />
-                  <Route path="/seating" element={<Seating />} />
+                  <Route path="/storage" element={<Storage />} />
+                  <Route path="/seating" element={<Navigate to="/all" replace />} />
                   <Route path="/tables" element={<Tables />} />
                   <Route path="/all" element={<All />} />
                   <Route path="/cabinets" element={<Navigate to="/all" replace />} />

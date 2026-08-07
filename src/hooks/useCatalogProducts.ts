@@ -30,7 +30,7 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
 ];
 
 // Only these categories are surfaced anywhere on the site.
-const ALLOWED_CATEGORIES = new Set(["lighting", "mirrors", "tables", "beds", "dressers", "seating"]);
+const ALLOWED_CATEGORIES = new Set(["lighting", "mirrors", "tables", "beds", "dressers", "storage"]);
 
 // Category overrides — fix miscategorized products from the sheet.
 const CATEGORY_OVERRIDES: { match: RegExp; category: string }[] = [

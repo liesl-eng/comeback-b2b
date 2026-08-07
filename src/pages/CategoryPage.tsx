@@ -279,7 +279,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                   </select>
                 </div>
                 <span className="text-xs text-muted-foreground font-medium">
-                  {totalUnits.toLocaleString()} {totalUnits === 1 ? "unit" : "units"} in stock
+                  {totalUnits.toLocaleString()} {totalUnits === 1 ? "unit" : "units"} ready to ship
                 </span>
               </div>
             </div>

@@ -202,21 +202,23 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
         <div className="bg-[hsl(var(--primary))] text-primary-foreground">
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <nav className="flex items-center gap-6 md:gap-10 h-12">
-              {CATEGORY_NAV.map((c) => {
+              {CATEGORY_NAV.map((c, i) => {
                 const active = c.name === category;
                 return (
-                  <Link
-                    key={c.name}
-                    to={c.path}
-                    className={cn(
-                      "text-sm md:text-base font-bold tracking-wide uppercase transition-colors",
-                      active
-                        ? "text-accent border-b-2 border-accent pb-1"
-                        : "text-primary-foreground/80 hover:text-primary-foreground",
-                    )}
-                  >
-                    {c.name}
-                  </Link>
+                  <div key={c.name} className="flex items-center gap-6 md:gap-10">
+                    {i === 4 && <span className="h-6 w-0.5 bg-accent/50 rounded-full" aria-hidden="true" />}
+                    <Link
+                      to={c.path}
+                      className={cn(
+                        "text-sm md:text-base font-bold tracking-wide uppercase transition-colors",
+                        active
+                          ? "text-accent border-b-2 border-accent pb-1"
+                          : "text-primary-foreground/80 hover:text-primary-foreground",
+                      )}
+                    >
+                      {c.name}
+                    </Link>
+                  </div>
                 );
               })}
             </nav>

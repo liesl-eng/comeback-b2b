@@ -183,7 +183,7 @@ const Navbar = ({ cartItemCount }: NavbarProps) => {
                   </Button>
                 </Link>
               ))}
-              <div className="h-px bg-border my-1" aria-hidden="true" />
+              <div className="h-0.5 bg-accent/50 rounded-full my-1" aria-hidden="true" />
               {[
                 { to: "/beds", label: "Beds" },
                 { to: "/dressers", label: "Dressers" },

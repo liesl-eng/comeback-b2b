@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchAllProducts, SheetRow } from "@/lib/productSheet";
 import meridianBlack from "@/assets/meridian-black.webp.asset.json";
 import meridianBrushedSteel from "@/assets/meridian-brushed-steel.webp.asset.json";
+import raidenConsole from "@/assets/raiden-console-bassett.jpg.asset.json";
 
 // Manual image overrides for specific products (matched by name substring).
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [

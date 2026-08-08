@@ -67,6 +67,22 @@ const Navbar = ({ cartItemCount }: NavbarProps) => {
               { to: "/lighting", label: "Lighting", match: ["/lighting", "/lighting-program"] },
               { to: "/mirrors", label: "Mirrors", match: ["/mirrors", "/mirror-program"] },
               { to: "/tables", label: "Tables", match: ["/tables"] },
+            ].map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) => {
+                  const active = isActive || item.match.some((p) => window.location.pathname.startsWith(p));
+                  return `px-2 lg:px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                    active ? "text-accent" : "text-muted-foreground hover:text-foreground"
+                  }`;
+                }}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+            <span className="h-5 w-px bg-border mx-1" aria-hidden="true" />
+            {[
               { to: "/beds", label: "Beds", match: ["/beds"] },
               { to: "/dressers", label: "Dressers", match: ["/dressers"] },
               { to: "/storage", label: "Storage", match: ["/storage"] },
@@ -160,6 +176,15 @@ const Navbar = ({ cartItemCount }: NavbarProps) => {
                 { to: "/lighting", label: "Lighting" },
                 { to: "/mirrors", label: "Mirrors" },
                 { to: "/tables", label: "Tables" },
+              ].map((item) => (
+                <Link key={item.to} to={item.to} onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full">
+                    {item.label}
+                  </Button>
+                </Link>
+              ))}
+              <div className="h-px bg-border my-1" aria-hidden="true" />
+              {[
                 { to: "/beds", label: "Beds" },
                 { to: "/dressers", label: "Dressers" },
                 { to: "/storage", label: "Storage" },

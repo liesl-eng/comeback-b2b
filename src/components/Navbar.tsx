@@ -81,7 +81,7 @@ const Navbar = ({ cartItemCount }: NavbarProps) => {
                 {item.label}
               </NavLink>
             ))}
-            <span className="h-5 w-px bg-border mx-1" aria-hidden="true" />
+            <span className="h-6 w-0.5 bg-accent/50 rounded-full mx-1.5" aria-hidden="true" />
             {[
               { to: "/beds", label: "Beds", match: ["/beds"] },
               { to: "/dressers", label: "Dressers", match: ["/dressers"] },

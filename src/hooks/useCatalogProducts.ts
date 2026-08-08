@@ -8,6 +8,7 @@ import raidenConsole from "@/assets/raiden-console-bassett.jpg.asset.json";
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /meridian.*brushed\s*steel/i, url: meridianBrushedSteel.url },
   { match: /meridian.*black/i, url: meridianBlack.url },
+  { match: /raiden.*console/i, url: raidenConsole.url },
   // Mopio products — Google Sheet is missing image URLs.
   { match: /^blake chest coffee table,\s*black oak/i, url: "https://mopio.com/cdn/shop/files/01b_Main_Image_PNG__dotcom.png" },
   { match: /^blake chest coffee table,\s*white oak/i, url: "https://mopio.com/cdn/shop/files/01b_Main_Image_PNG__dotcom_d65099d8-d8b9-4c45-aec8-a3d9fdbc3818.png" },

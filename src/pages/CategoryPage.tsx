@@ -320,7 +320,10 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {visible.map((p, i) => {
               // Price sourced from "Final Price (MIN Rule)" (col K), discount from col L
-              const msrpForDisplay = p.msrp ?? null;
+              // Modus Furniture displays MSRP at 55% of the raw column F value.
+              const isModus = /modus/i.test(p.brand ?? "");
+              const msrpForDisplay =
+                p.msrp == null ? null : isModus ? Math.round(p.msrp * 0.55) : p.msrp;
               const displayPrice = p.finalPrice ?? p.price ?? null;
               const pct =
                 p.finalDiscountPct != null

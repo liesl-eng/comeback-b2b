@@ -48,14 +48,22 @@ const HIDDEN_PRODUCTS: RegExp[] = [
 // Brands hidden from the storefront (still synced/imported on the admin side).
 const HIDDEN_BRANDS = new Set(["sei"]);
 
+// Shorter display labels for brand names that are too long to fit on one line.
+const BRAND_DISPLAY_LABELS: Record<string, string> = {
+  "ART Home Furnishings": "ART Home",
+  "Modus Furniture": "Modus",
+};
+
 function applyOverrides(rows: SheetRow[]): SheetRow[] {
   return rows
     .map((r) => {
       const imgOv = IMAGE_OVERRIDES.find((o) => o.match.test(r.name));
       const catOv = CATEGORY_OVERRIDES.find((o) => o.match.test(r.name));
+      const labelOv = BRAND_DISPLAY_LABELS[r.brand ?? ""];
       let out = r;
       if (imgOv) out = { ...out, imageUrl: imgOv.url };
       if (catOv) out = { ...out, category: catOv.category };
+      if (labelOv) out = { ...out, brand: labelOv };
       return out;
     })
     // Only Lighting, Mirrors, and Tables are shown across the site.

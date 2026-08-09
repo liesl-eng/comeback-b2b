@@ -149,7 +149,7 @@ export default function AddToOrderButton({ item }: Props) {
     const finalQty = resolveQty();
     setQtyInput(String(finalQty));
     const sp = state.spaces.find((s) => s.id === selectedSpaceId);
-    const name = sp?.name ?? "space";
+    const name = sp?.name ?? "collection";
     addItem(selectedSpaceId, item, finalQty);
     toast.success(`${finalQty} × ${item.productName} added to ${name}`);
     setOpen(false);

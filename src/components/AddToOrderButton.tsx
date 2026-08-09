@@ -96,7 +96,7 @@ function SpaceRow({ id, name, count, active, onSelect }: SpaceRowProps) {
           size="icon"
           variant="ghost"
           className="h-7 w-7 mr-1 text-accent-foreground hover:bg-accent-foreground/10 hover:text-accent-foreground"
-          title="Rename space"
+          title="Rename collection"
           onClick={(e) => { e.stopPropagation(); setEditing(true); }}
         >
           <Pencil className="h-3.5 w-3.5" />
@@ -161,7 +161,7 @@ export default function AddToOrderButton({ item }: Props) {
     <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <Button className="mt-auto w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
-          <Plus className="h-4 w-4 mr-1.5" /> Add to Order
+          <Plus className="h-4 w-4 mr-1.5" /> Add to Order Request
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-72 p-3" align="end">
@@ -201,7 +201,7 @@ export default function AddToOrderButton({ item }: Props) {
         <p className="text-xs text-muted-foreground text-center mb-3">{max} available</p>
 
         {/* Space picker */}
-        <p className="text-sm font-semibold mb-2">Add to Space</p>
+        <p className="text-sm font-semibold mb-2">Add to Collection</p>
         <div className="space-y-1 max-h-44 overflow-y-auto mb-2">
           {state.spaces.map((s) => (
             <SpaceRow
@@ -220,7 +220,7 @@ export default function AddToOrderButton({ item }: Props) {
           onClick={handleNewSpace}
           className="w-full text-left text-sm px-2 py-1.5 mb-3 rounded hover:bg-muted text-accent font-semibold flex items-center gap-1.5"
         >
-          <Plus className="h-3.5 w-3.5" /> New Space
+          <Plus className="h-3.5 w-3.5" /> New Collection
         </button>
 
         <Button
@@ -229,7 +229,7 @@ export default function AddToOrderButton({ item }: Props) {
           disabled={!selectedSpaceId}
           className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
         >
-          Add to Order
+          Add to Order Request
         </Button>
       </PopoverContent>
     </Popover>

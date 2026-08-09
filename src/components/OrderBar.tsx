@@ -165,7 +165,7 @@ function SpaceRow({ space }: { space: OrderSpace }) {
               <AlertDialogDescription>
                 {space.items.length > 0
                   ? `This will remove ${space.items.length} item${space.items.length === 1 ? "" : "s"} from your order.`
-                  : "This space is empty."}
+                  : "This collection is empty."}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -348,7 +348,7 @@ export default function OrderBar() {
 
     const orderItemsFormatted = spacesPayload
       .map((s, idx) => {
-        const header = `Space ${idx + 1} — ${s.spaceName}:`;
+        const header = `Collection ${idx + 1} — ${s.spaceName}:`;
         const lines = s.items
           .map((i) => `  [${i.brand}] ${i.productName} x${i.quantity} — ${fmtMoney(i.lineTotal)}`)
           .join("\n");
@@ -460,7 +460,7 @@ export default function OrderBar() {
                 <div className="min-w-0">
                   <p className="font-semibold text-sm leading-tight">Your Order</p>
                   <p className="text-xs text-white/70 leading-tight">
-                    {totals.items} item{totals.items === 1 ? "" : "s"} · across {totals.spacesWithItems || 1} space{(totals.spacesWithItems || 1) === 1 ? "" : "s"}
+                    {totals.items} item{totals.items === 1 ? "" : "s"} · across {totals.spacesWithItems || 1} collection{(totals.spacesWithItems || 1) === 1 ? "" : "s"}
                   </p>
                 </div>
               </div>
@@ -509,7 +509,7 @@ export default function OrderBar() {
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
               <span>{totals.items} item{totals.items === 1 ? "" : "s"}</span>
               <span>·</span>
-              <span>{state.spaces.length} space{state.spaces.length === 1 ? "" : "s"}</span>
+              <span>{state.spaces.length} collection{state.spaces.length === 1 ? "" : "s"}</span>
               <span>·</span>
               <span className="font-semibold text-foreground">{fmtMoney(totals.grandTotal)} total</span>
             </div>
@@ -524,7 +524,7 @@ export default function OrderBar() {
               className="w-full"
               onClick={() => { addSpace(); }}
             >
-              <Plus className="h-4 w-4 mr-1.5" /> Add New Space
+              <Plus className="h-4 w-4 mr-1.5" /> Add New Collection
             </Button>
           </div>
 
@@ -667,7 +667,7 @@ export default function OrderBar() {
               </p>
               <div className="rounded-lg border p-3 text-left text-xs space-y-1 mb-5">
                 <div className="flex justify-between"><span>Items</span><span className="font-semibold">{totals.items}</span></div>
-                <div className="flex justify-between"><span>Spaces</span><span className="font-semibold">{totals.spacesWithItems}</span></div>
+                <div className="flex justify-between"><span>Collections</span><span className="font-semibold">{totals.spacesWithItems}</span></div>
                 <div className="flex justify-between"><span>Order Total</span><span className="font-semibold">{fmtMoney(totals.grandTotal)}</span></div>
               </div>
               <div className="flex flex-col sm:flex-row gap-2">

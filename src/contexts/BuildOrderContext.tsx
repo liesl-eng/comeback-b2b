@@ -38,7 +38,7 @@ const defaultBuyerInfo: BuyerInfo = {
 };
 
 const initialState = (): OrderState => ({
-  spaces: [{ id: "space_1", name: "Space 1", items: [] }],
+  spaces: [{ id: "space_1", name: "Collection 1", items: [] }],
   buyerInfo: { ...defaultBuyerInfo },
 });
 
@@ -134,7 +134,7 @@ export function BuildOrderProvider({ children }: { children: ReactNode }) {
   const addSpace: Ctx["addSpace"] = useCallback((name) => {
     const id = `space_${Date.now()}`;
     setState((prev) => {
-      const n = name || `Space ${prev.spaces.length + 1}`;
+      const n = name || `Collection ${prev.spaces.length + 1}`;
       return { ...prev, spaces: [...prev.spaces, { id, name: n, items: [] }] };
     });
     return id;
@@ -144,7 +144,7 @@ export function BuildOrderProvider({ children }: { children: ReactNode }) {
     const id = `space_${Date.now()}`;
     let finalName = name?.trim() || "";
     setState((prev) => {
-      const n = finalName || `Space ${prev.spaces.length + 1}`;
+      const n = finalName || `Collection ${prev.spaces.length + 1}`;
       finalName = n;
       const q = Math.min(qty, item.unitsAvailable || qty);
       const newSpace: OrderSpace = { id, name: n, items: [{ ...item, quantity: q }] };
@@ -164,7 +164,7 @@ export function BuildOrderProvider({ children }: { children: ReactNode }) {
     setState((prev) => {
       const remaining = prev.spaces.filter((s) => s.id !== spaceId);
       if (remaining.length === 0) {
-        return { ...prev, spaces: [{ id: `space_${Date.now()}`, name: "Space 1", items: [] }] };
+        return { ...prev, spaces: [{ id: `space_${Date.now()}`, name: "Collection 1", items: [] }] };
       }
       return { ...prev, spaces: remaining };
     });

@@ -398,7 +398,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
                     <div className="text-sm uppercase tracking-widest text-accent font-bold">
                       {p.brand}
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground line-clamp-2 min-h-[3.5rem] leading-snug">
+                    <h3 className="text-lg font-semibold text-foreground line-clamp-3 min-h-[5.25rem] leading-snug">
                       {p.name}
                     </h3>
                     {isApproved ? (

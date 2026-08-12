@@ -3,6 +3,7 @@ import { fetchAllProducts, SheetRow } from "@/lib/productSheet";
 import meridianBlack from "@/assets/meridian-black.webp.asset.json";
 import meridianBrushedSteel from "@/assets/meridian-brushed-steel.webp.asset.json";
 import raidenConsole from "@/assets/raiden-console-bassett.jpg.asset.json";
+import odeliaCounterStool from "@/assets/odelia-counter-stool.webp.asset.json";
 
 // Manual image overrides for specific products (matched by name substring).
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
@@ -18,8 +19,7 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /^logan rectangle solid wood coffee table/i, url: "https://mopio.com/cdn/shop/files/01a_MainImage_Rectangle_PNG.png" },
   { match: /^logan round solid wood coffee table/i, url: "https://mopio.com/cdn/shop/files/01a_MainImage_Round_PNG.png" },
   { match: /^odelia bistro dining table/i, url: "https://mopio.com/cdn/shop/files/01b-MainImage_PNG.jpg" },
-  { match: /^odelia counter stool set of 2,\s*outdoor beige/i, url: "https://mopio.com/cdn/shop/files/01.2b-MainImage_PNG_Beige_fbfeda1f-dbab-4560-812a-ff7d07795463.jpg" },
-  { match: /^odelia counter stool set of 2,\s*pearl white boucle/i, url: "https://mopio.com/cdn/shop/files/01.2c-MainImage_PNG_PWB.jpg" },
+  { match: /^odelia counter stool/i, url: odeliaCounterStool.url },
   { match: /^odelia dining chair set of 2,\s*olive green velvet/i, url: "https://mopio.com/cdn/shop/files/01.2a-MainImage_x2PNG_OliveGreen.jpg" },
   { match: /^odelia dining chair set of 2,\s*pearl white boucle/i, url: "https://mopio.com/cdn/shop/files/01.2c_-_Main_Image_x2_PNG_PWB.jpg" },
   { match: /^quin 59.*tv stand,\s*black/i, url: "https://mopio.com/cdn/shop/files/Quinn-TV-Stand-Black-Angle.png" },

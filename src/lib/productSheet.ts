@@ -14,6 +14,7 @@ export const SHEET_GIDS: Record<string, string> = {
   "Bassett Mirror": "681217923",
   "SEI": "810215814",
   "Mopio": "1731915112",
+  "Caracole": "494558387",
 };
 
 export type BrandTab = keyof typeof SHEET_GIDS & string;

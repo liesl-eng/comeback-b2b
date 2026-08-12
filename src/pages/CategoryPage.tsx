@@ -325,8 +325,15 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
               // Price sourced from "Final Price (MIN Rule)" (col K), discount from col L
               // Modus Furniture displays MSRP at 55% of the raw column F value.
               const isModus = /modus/i.test(p.brand ?? "");
+              const isCaracole = /caracole/i.test(p.brand ?? "");
               const msrpForDisplay =
-                p.msrp == null ? null : isModus ? Math.round(p.msrp * 0.55) : p.msrp;
+                p.msrp == null
+                  ? null
+                  : isModus
+                    ? Math.round(p.msrp * 0.55)
+                    : isCaracole
+                      ? Math.round(p.msrp * 0.75)
+                      : p.msrp;
               const displayPrice = p.finalPrice ?? p.price ?? null;
               const pct =
                 p.finalDiscountPct != null

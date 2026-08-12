@@ -23,6 +23,7 @@ const SHEET_GIDS: Record<string, string> = {
   "Bassett Mirror": "681217923",
   "SEI": "810215814",
   "Mopio": "1731915112",
+  "Caracole": "494558387",
 };
 
 const DEFAULT_BRANDS = Object.keys(SHEET_GIDS);

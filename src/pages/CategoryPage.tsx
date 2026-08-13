@@ -38,7 +38,9 @@ interface CategoryPageProps {
   category: "All" | "Lighting" | "Mirrors" | "Tables" | "Beds" | "Dressers" | "Storage" | "Seating";
   title: string;
   subtitle?: string;
+  categoryList?: string[];
 }
+
 
 function formatMoney(n: number | null): string {
   if (n == null) return "—";
@@ -63,7 +65,7 @@ function effectivePrice(row: SheetRow): number | null {
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
+const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageProps) => {
   const { products, loading, error } = useCatalogProducts();
   const refreshedAt = useInventoryRefreshedAt();
   const { user, isApproved } = useAuth();
@@ -71,6 +73,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
   const location = useLocation();
   const [activeBrand, setActiveBrand] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<SortKey>("price-asc");
+
 
   useEffect(() => {
     if (loading) return;
@@ -92,13 +95,16 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
 
   const inCategory = useMemo(
     () =>
-      category === "All"
-        ? products
-        : products.filter(
-            (p) => (p.category ?? "").trim().toLowerCase() === category.toLowerCase(),
-          ),
-    [products, category],
+      categoryList?.length
+        ? products.filter((p) => categoryList.includes((p.category ?? "").trim().toLowerCase()))
+        : category === "All"
+          ? products
+          : products.filter(
+              (p) => (p.category ?? "").trim().toLowerCase() === category.toLowerCase(),
+            ),
+    [products, category, categoryList],
   );
+
 
   const brands = useMemo(() => {
     const set = new Set<string>();
@@ -204,8 +210,9 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <nav className="flex items-center gap-6 md:gap-10 h-12">
               {CATEGORY_NAV.map((c, i) => {
-                const active = c.name === category;
+                const active = !categoryList && c.name === category;
                 return (
+
                   <div key={c.name} className="flex items-center gap-6 md:gap-10">
                     {i === 4 && <span className="h-6 w-0.5 bg-accent/50 rounded-full" aria-hidden="true" />}
                     <Link
@@ -317,9 +324,10 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
           <div className="py-24 text-center text-destructive">{error}</div>
         ) : visible.length === 0 ? (
           <div className="py-24 text-center text-muted-foreground">
-            No {category.toLowerCase()} available right now.
+            No {categoryList?.length ? title.toLowerCase() : category.toLowerCase()} available right now.
           </div>
         ) : (
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {visible.map((p, i) => {
               // Price sourced from "Final Price (MIN Rule)" (col K), discount from col L

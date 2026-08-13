@@ -90,7 +90,9 @@ const App = () => {
                   <Route path="/seating" element={<Seating />} />
                   <Route path="/tables" element={<Tables />} />
                   <Route path="/all" element={<All />} />
+                  <Route path="/collections/small-furniture" element={<SmallFurnitureCollection />} />
                   <Route path="/cabinets" element={<Navigate to="/all" replace />} />
+
 
 
                   <Route path="/favorites" element={<Favorites />} />

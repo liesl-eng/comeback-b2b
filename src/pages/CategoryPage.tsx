@@ -95,13 +95,16 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
 
   const inCategory = useMemo(
     () =>
-      category === "All"
-        ? products
-        : products.filter(
-            (p) => (p.category ?? "").trim().toLowerCase() === category.toLowerCase(),
-          ),
-    [products, category],
+      categoryList?.length
+        ? products.filter((p) => categoryList.includes((p.category ?? "").trim().toLowerCase()))
+        : category === "All"
+          ? products
+          : products.filter(
+              (p) => (p.category ?? "").trim().toLowerCase() === category.toLowerCase(),
+            ),
+    [products, category, categoryList],
   );
+
 
   const brands = useMemo(() => {
     const set = new Set<string>();

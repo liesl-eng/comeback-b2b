@@ -38,7 +38,9 @@ interface CategoryPageProps {
   category: "All" | "Lighting" | "Mirrors" | "Tables" | "Beds" | "Dressers" | "Storage" | "Seating";
   title: string;
   subtitle?: string;
+  categoryList?: string[];
 }
+
 
 function formatMoney(n: number | null): string {
   if (n == null) return "—";

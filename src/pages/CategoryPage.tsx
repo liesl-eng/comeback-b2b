@@ -323,9 +323,10 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
           <div className="py-24 text-center text-destructive">{error}</div>
         ) : visible.length === 0 ? (
           <div className="py-24 text-center text-muted-foreground">
-            No {category.toLowerCase()} available right now.
+            No {categoryList?.length ? title.toLowerCase() : category.toLowerCase()} available right now.
           </div>
         ) : (
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {visible.map((p, i) => {
               // Price sourced from "Final Price (MIN Rule)" (col K), discount from col L

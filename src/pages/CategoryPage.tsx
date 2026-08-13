@@ -65,7 +65,7 @@ function effectivePrice(row: SheetRow): number | null {
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
+const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageProps) => {
   const { products, loading, error } = useCatalogProducts();
   const refreshedAt = useInventoryRefreshedAt();
   const { user, isApproved } = useAuth();
@@ -73,6 +73,7 @@ const CategoryPage = ({ category, title, subtitle }: CategoryPageProps) => {
   const location = useLocation();
   const [activeBrand, setActiveBrand] = useState<string | null>(null);
   const [sortKey, setSortKey] = useState<SortKey>("price-asc");
+
 
   useEffect(() => {
     if (loading) return;

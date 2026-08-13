@@ -40,7 +40,7 @@ import Seating from "./pages/Seating";
 import Tables from "./pages/Tables";
 import All from "./pages/All";
 
-import SmallFurnitureCollection from "./pages/SmallFurnitureCollection";
+
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -90,7 +90,7 @@ const App = () => {
                   <Route path="/seating" element={<Seating />} />
                   <Route path="/tables" element={<Tables />} />
                   <Route path="/all" element={<All />} />
-                  <Route path="/collections/small-furniture" element={<SmallFurnitureCollection />} />
+                  <Route path="/collections/small-furniture" element={<Navigate to="/all" replace />} />
                   <Route path="/cabinets" element={<Navigate to="/all" replace />} />
 
 

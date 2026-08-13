@@ -40,8 +40,10 @@ import Seating from "./pages/Seating";
 import Tables from "./pages/Tables";
 import All from "./pages/All";
 
+import SmallFurnitureCollection from "./pages/SmallFurnitureCollection";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+
 
 const queryClient = new QueryClient();
 

@@ -210,8 +210,9 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
           <div className="container mx-auto px-4 md:px-6 max-w-7xl">
             <nav className="flex items-center gap-6 md:gap-10 h-12">
               {CATEGORY_NAV.map((c, i) => {
-                const active = c.name === category;
+                const active = !categoryList && c.name === category;
                 return (
+
                   <div key={c.name} className="flex items-center gap-6 md:gap-10">
                     {i === 4 && <span className="h-6 w-0.5 bg-accent/50 rounded-full" aria-hidden="true" />}
                     <Link

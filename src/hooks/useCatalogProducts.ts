@@ -6,6 +6,12 @@ import raidenConsole from "@/assets/raiden-console-bassett.jpg.asset.json";
 import odeliaCounterStool from "@/assets/odelia-counter-stool.webp.asset.json";
 import odeliaCounterStoolPearlWhite from "@/assets/odelia-counter-stool-pearl-white.webp.asset.json";
 import caracoleSavoy from "@/assets/Caracole_Savoy.webp.asset.json";
+import architraveQueenPanelBed from "@/assets/ART_Home_Architrave_Queen_Panel_Bed.webp.asset.json";
+import grantQueenPillowBackBed from "@/assets/ART_Home_Grant_Queen_Pillow_Back_Uph_Bed-Alum.webp.asset.json";
+import coveCalKingBed from "@/assets/ART_Home_Cove_Cal_King_Upholstered_Beds.webp.asset.json";
+import eaveUphQueenBed from "@/assets/Eave_Uph_Queen_Bed.webp.asset.json";
+import eavePanelBed from "@/assets/Eave_Panel_Bed.webp.asset.json";
+import cotiereQueenUphPanelBed from "@/assets/Cotiere_Queen_Upholstered_Panel_Bed.webp.asset.json";
 
 // Manual image overrides for specific products (matched by name substring).
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [

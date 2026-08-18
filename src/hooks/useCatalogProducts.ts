@@ -12,6 +12,11 @@ import coveCalKingBed from "@/assets/ART_Home_Cove_Cal_King_Upholstered_Beds.web
 import eaveUphQueenBed from "@/assets/Eave_Uph_Queen_Bed.webp.asset.json";
 import eavePanelBed from "@/assets/Eave_Panel_Bed.webp.asset.json";
 import cotiereQueenUphPanelBed from "@/assets/Cotiere_Queen_Upholstered_Panel_Bed.webp.asset.json";
+import grantKingPillowBackSnow from "@/assets/ART_Home_Grant_King_Pillow_Back_Uph_Bed-Snow.webp.asset.json";
+import eaveUphKingBed from "@/assets/Eave_Uph_King_Bed.webp.asset.json";
+import eavePanelKingBed from "@/assets/Eave_Panel_King_Bed.webp.asset.json";
+import passage60Bed from "@/assets/Passage_6_0_Bed.jpeg.asset.json";
+import passage50Bed from "@/assets/ART_Passage_5_0_Bed.webp.asset.json";
 
 // Manual image overrides for specific products (matched by name substring).
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
@@ -43,9 +48,14 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /architrave.*queen.*panel bed/i, url: architraveQueenPanelBed.url },
   { match: /grant.*queen.*pillow\s*back/i, url: grantQueenPillowBackBed.url },
   { match: /cove.*cal(ifornia)?[\s-]*king.*(upholstered|uph)/i, url: coveCalKingBed.url },
+  { match: /grant.*king.*pillow\s*back/i, url: grantKingPillowBackSnow.url },
+  { match: /eave.*(uph|upholstered).*king.*bed/i, url: eaveUphKingBed.url },
+  { match: /eave.*panel.*king.*bed/i, url: eavePanelKingBed.url },
   { match: /eave.*(uph|upholstered).*queen.*bed/i, url: eaveUphQueenBed.url },
   { match: /eave.*panel bed/i, url: eavePanelBed.url },
   { match: /cotiere.*queen.*(upholstered|uph).*panel bed/i, url: cotiereQueenUphPanelBed.url },
+  { match: /passage\s*6[._]0/i, url: passage60Bed.url },
+  { match: /passage\s*5[._]0/i, url: passage50Bed.url },
 ];
 
 // Only these categories are surfaced anywhere on the site.

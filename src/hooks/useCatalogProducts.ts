@@ -17,6 +17,12 @@ import eaveUphKingBed from "@/assets/Eave_Uph_King_Bed.webp.asset.json";
 import eavePanelKingBed from "@/assets/Eave_Panel_King_Bed.webp.asset.json";
 import passage60Bed from "@/assets/Passage_6_0_Bed.jpeg.asset.json";
 import passage50Bed from "@/assets/ART_Passage_5_0_Bed.webp.asset.json";
+import coveSpotTable from "@/assets/ART_Home_Cove_Spot_Table.webp.asset.json";
+import corteDiningGreen from "@/assets/ART_Home_Corte_Dining_Table-_Green.webp.asset.json";
+import corteDiningBrown from "@/assets/ART_Home_Corte_Dining_Table-_Brown.jpeg.asset.json";
+import corteDiningWhite from "@/assets/ART_Home_Corte_Dining_Table-_White.webp.asset.json";
+import eaveBedsideInk from "@/assets/ART_Home_Eave_Bedside_Table-Uplifting_Ink.webp.asset.json";
+import eaveBedsideWhite from "@/assets/ART_Home_Eave_Bedside_Table-Uplifting_White.webp.asset.json";
 
 // Manual image overrides for specific products (matched by name substring).
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [

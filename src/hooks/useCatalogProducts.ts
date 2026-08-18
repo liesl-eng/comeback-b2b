@@ -17,6 +17,12 @@ import eaveUphKingBed from "@/assets/Eave_Uph_King_Bed.webp.asset.json";
 import eavePanelKingBed from "@/assets/Eave_Panel_King_Bed.webp.asset.json";
 import passage60Bed from "@/assets/Passage_6_0_Bed.jpeg.asset.json";
 import passage50Bed from "@/assets/ART_Passage_5_0_Bed.webp.asset.json";
+import coveSpotTable from "@/assets/ART_Home_Cove_Spot_Table.webp.asset.json";
+import corteDiningGreen from "@/assets/ART_Home_Corte_Dining_Table-_Green.webp.asset.json";
+import corteDiningBrown from "@/assets/ART_Home_Corte_Dining_Table-_Brown.jpeg.asset.json";
+import corteDiningWhite from "@/assets/ART_Home_Corte_Dining_Table-_White.webp.asset.json";
+import eaveBedsideInk from "@/assets/ART_Home_Eave_Bedside_Table-Uplifting_Ink.webp.asset.json";
+import eaveBedsideWhite from "@/assets/ART_Home_Eave_Bedside_Table-Uplifting_White.webp.asset.json";
 
 // Manual image overrides for specific products (matched by name substring).
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
@@ -45,6 +51,12 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /^sterling table top/i, url: "https://mopio.com/cdn/shop/files/Oak_PNG.jpg" },
   { match: /caracole.*savoy.*sofa/i, url: caracoleSavoy.url },
   // ART Home / Eave / Cotiere beds — supplied photos.
+  { match: /cove.*spot table/i, url: coveSpotTable.url },
+  { match: /corte.*dining table.*green/i, url: corteDiningGreen.url },
+  { match: /corte.*dining table.*(brown|travertine)/i, url: corteDiningBrown.url },
+  { match: /corte.*dining table.*white/i, url: corteDiningWhite.url },
+  { match: /eave.*bedside table.*(ink|black)/i, url: eaveBedsideInk.url },
+  { match: /eave.*bedside table.*white/i, url: eaveBedsideWhite.url },
   { match: /architrave.*queen.*panel bed/i, url: architraveQueenPanelBed.url },
   { match: /grant.*queen.*pillow\s*back/i, url: grantQueenPillowBackBed.url },
   { match: /cove.*cal(ifornia)?[\s-]*king.*(upholstered|uph)/i, url: coveCalKingBed.url },

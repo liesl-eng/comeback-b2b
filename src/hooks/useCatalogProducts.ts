@@ -51,6 +51,12 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /^sterling table top/i, url: "https://mopio.com/cdn/shop/files/Oak_PNG.jpg" },
   { match: /caracole.*savoy.*sofa/i, url: caracoleSavoy.url },
   // ART Home / Eave / Cotiere beds — supplied photos.
+  { match: /cove.*spot table/i, url: coveSpotTable.url },
+  { match: /corte.*dining table.*green/i, url: corteDiningGreen.url },
+  { match: /corte.*dining table.*(brown|travertine)/i, url: corteDiningBrown.url },
+  { match: /corte.*dining table.*white/i, url: corteDiningWhite.url },
+  { match: /eave.*bedside table.*(ink|black)/i, url: eaveBedsideInk.url },
+  { match: /eave.*bedside table.*white/i, url: eaveBedsideWhite.url },
   { match: /architrave.*queen.*panel bed/i, url: architraveQueenPanelBed.url },
   { match: /grant.*queen.*pillow\s*back/i, url: grantQueenPillowBackBed.url },
   { match: /cove.*cal(ifornia)?[\s-]*king.*(upholstered|uph)/i, url: coveCalKingBed.url },

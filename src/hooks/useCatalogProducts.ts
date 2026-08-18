@@ -12,6 +12,11 @@ import coveCalKingBed from "@/assets/ART_Home_Cove_Cal_King_Upholstered_Beds.web
 import eaveUphQueenBed from "@/assets/Eave_Uph_Queen_Bed.webp.asset.json";
 import eavePanelBed from "@/assets/Eave_Panel_Bed.webp.asset.json";
 import cotiereQueenUphPanelBed from "@/assets/Cotiere_Queen_Upholstered_Panel_Bed.webp.asset.json";
+import grantKingPillowBackSnow from "@/assets/ART_Home_Grant_King_Pillow_Back_Uph_Bed-Snow.webp.asset.json";
+import eaveUphKingBed from "@/assets/Eave_Uph_King_Bed.webp.asset.json";
+import eavePanelKingBed from "@/assets/Eave_Panel_King_Bed.webp.asset.json";
+import passage60Bed from "@/assets/Passage_6_0_Bed.jpeg.asset.json";
+import passage50Bed from "@/assets/ART_Passage_5_0_Bed.webp.asset.json";
 
 // Manual image overrides for specific products (matched by name substring).
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [

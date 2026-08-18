@@ -51,6 +51,11 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /eave.*(uph|upholstered).*queen.*bed/i, url: eaveUphQueenBed.url },
   { match: /eave.*panel bed/i, url: eavePanelBed.url },
   { match: /cotiere.*queen.*(upholstered|uph).*panel bed/i, url: cotiereQueenUphPanelBed.url },
+  { match: /grant.*king.*pillow\s*back/i, url: grantKingPillowBackSnow.url },
+  { match: /eave.*(uph|upholstered).*king.*bed/i, url: eaveUphKingBed.url },
+  { match: /eave.*panel.*king.*bed/i, url: eavePanelKingBed.url },
+  { match: /passage\s*6[._]0/i, url: passage60Bed.url },
+  { match: /passage\s*5[._]0/i, url: passage50Bed.url },
 ];
 
 // Only these categories are surfaced anywhere on the site.

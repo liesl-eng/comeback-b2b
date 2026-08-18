@@ -6,6 +6,12 @@ import raidenConsole from "@/assets/raiden-console-bassett.jpg.asset.json";
 import odeliaCounterStool from "@/assets/odelia-counter-stool.webp.asset.json";
 import odeliaCounterStoolPearlWhite from "@/assets/odelia-counter-stool-pearl-white.webp.asset.json";
 import caracoleSavoy from "@/assets/Caracole_Savoy.webp.asset.json";
+import architraveQueenPanelBed from "@/assets/ART_Home_Architrave_Queen_Panel_Bed.webp.asset.json";
+import grantQueenPillowBackBed from "@/assets/ART_Home_Grant_Queen_Pillow_Back_Uph_Bed-Alum.webp.asset.json";
+import coveCalKingBed from "@/assets/ART_Home_Cove_Cal_King_Upholstered_Beds.webp.asset.json";
+import eaveUphQueenBed from "@/assets/Eave_Uph_Queen_Bed.webp.asset.json";
+import eavePanelBed from "@/assets/Eave_Panel_Bed.webp.asset.json";
+import cotiereQueenUphPanelBed from "@/assets/Cotiere_Queen_Upholstered_Panel_Bed.webp.asset.json";
 
 // Manual image overrides for specific products (matched by name substring).
 const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
@@ -33,6 +39,13 @@ const IMAGE_OVERRIDES: { match: RegExp; url: string }[] = [
   { match: /^quin side table,\s*light oak/i, url: "https://mopio.com/cdn/shop/files/01a-MainImage_3d34e815-9381-41e3-a0e4-011620f47e57.jpg" },
   { match: /^sterling table top/i, url: "https://mopio.com/cdn/shop/files/Oak_PNG.jpg" },
   { match: /caracole.*savoy.*sofa/i, url: caracoleSavoy.url },
+  // ART Home / Eave / Cotiere beds — supplied photos.
+  { match: /architrave.*queen.*panel bed/i, url: architraveQueenPanelBed.url },
+  { match: /grant.*queen.*pillow\s*back/i, url: grantQueenPillowBackBed.url },
+  { match: /cove.*cal(ifornia)?[\s-]*king.*(upholstered|uph)/i, url: coveCalKingBed.url },
+  { match: /eave.*(uph|upholstered).*queen.*bed/i, url: eaveUphQueenBed.url },
+  { match: /eave.*panel bed/i, url: eavePanelBed.url },
+  { match: /cotiere.*queen.*(upholstered|uph).*panel bed/i, url: cotiereQueenUphPanelBed.url },
 ];
 
 // Only these categories are surfaced anywhere on the site.

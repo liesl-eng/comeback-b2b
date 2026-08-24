@@ -39,7 +39,7 @@ const Index = () => {
                 Savings.
               </h1>
               <p className="mb-2 text-lg md:text-xl lg:text-2xl text-primary-foreground/90 font-medium max-w-3xl mx-auto text-center">
-                Sustainable sourcing. At a fraction of wholesale.
+                Sustainable sourcing. A smarter secondary channel.
               </p>
 
 

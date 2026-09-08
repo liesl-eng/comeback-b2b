@@ -85,7 +85,7 @@ const HIDDEN_PRODUCTS: RegExp[] = [
 ];
 
 // Brands hidden from the storefront (still synced/imported on the admin side).
-const HIDDEN_BRANDS = new Set(["sei"]);
+const HIDDEN_BRANDS = new Set(["sei", "arteriors home"]);
 
 // Shorter display labels for brand names that are too long to fit on one line.
 const BRAND_DISPLAY_LABELS: Record<string, string> = {

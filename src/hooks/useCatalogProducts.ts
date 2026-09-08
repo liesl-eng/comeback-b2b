@@ -82,6 +82,19 @@ const CATEGORY_OVERRIDES: { match: RegExp; category: string }[] = [
 // Permanently hidden products (matched by name substring, case-insensitive).
 const HIDDEN_PRODUCTS: RegExp[] = [
   /pomme\s+(light|dark)\s+cork/i,
+  /sanders\s+bar\s+cart/i,
+  /padme\s+chest/i,
+  /spiazzo\s+end\s+table/i,
+  /stiles\s+lounge\s+chair\s+flint\s+velvet/i,
+  /palto\s+dining\s+table/i,
+  /jonesboro\s+entry\s+table/i,
+  /rayna\s+lounge\s+chair/i,
+  /laurette\s+ottoman\s+muslin\s+dark\s+walnut/i,
+  /laurette\s+ottoman\s+moonlight\s+grid\s+chenille/i,
+  /rafferty\s+lounge\s+chair/i,
+  /reuben\s+dining\s+table/i,
+  /itiga\s+settee/i,
+  /phaedra\s+chaise\s+platinum\s+boucl[eé]\s+grey\s+ash/i,
 ];
 
 // Brands hidden from the storefront (still synced/imported on the admin side).

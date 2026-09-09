@@ -206,19 +206,22 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
 
       <div className="sticky top-16 md:top-20 z-40 shadow-sm">
         {/* Dark navy category bar */}
-        <div className="bg-[hsl(var(--primary))] text-primary-foreground">
-          <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-            <nav className="flex items-center gap-6 md:gap-10 h-12">
+        <div className="bg-[hsl(var(--primary))] text-primary-foreground overflow-hidden">
+          <div className="mx-auto max-w-7xl min-w-0">
+            <nav
+              aria-label="Product categories"
+              className="flex h-12 w-full min-w-0 items-center gap-6 overflow-x-auto px-4 md:gap-10 md:px-6 scrollbar-hide overscroll-x-contain"
+            >
               {CATEGORY_NAV.map((c, i) => {
                 const active = !categoryList && c.name === category;
                 return (
 
-                  <div key={c.name} className="flex items-center gap-6 md:gap-10">
+                  <div key={c.name} className="flex shrink-0 items-center gap-6 md:gap-10">
                     {i === 4 && <span className="h-6 w-0.5 bg-accent/50 rounded-full" aria-hidden="true" />}
                     <Link
                       to={c.path}
                       className={cn(
-                        "text-sm md:text-base font-bold tracking-wide uppercase transition-colors",
+                        "shrink-0 whitespace-nowrap text-sm md:text-base font-bold tracking-wide uppercase transition-colors",
                         active
                           ? "text-accent border-b-2 border-accent pb-1"
                           : "text-primary-foreground/80 hover:text-primary-foreground",
@@ -236,8 +239,8 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
         {/* Light gray brand filter band */}
         {brands.length > 0 && (
           <div className="bg-muted/95 backdrop-blur border-b border-border">
-            <div className="container mx-auto px-4 md:px-6 max-w-7xl py-2 flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium text-muted-foreground mr-1">
+            <div className="container mx-auto px-4 md:px-6 max-w-7xl py-2 flex min-w-0 flex-wrap items-center gap-2">
+              <span className="w-full text-sm font-medium text-muted-foreground md:mr-1 md:w-auto">
                 Filter by Brand:
               </span>
               <button
@@ -270,8 +273,8 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
                   </button>
                 );
               })}
-              <div className="ml-auto flex flex-col items-end gap-0.5">
-                <div className="flex items-center gap-2">
+              <div className="mt-1 flex w-full min-w-0 flex-col items-end gap-0.5 md:ml-auto md:mt-0 md:w-auto">
+                <div className="flex w-full min-w-0 items-center justify-end gap-2 md:w-auto">
                   <label htmlFor="sort" className="text-xs text-muted-foreground whitespace-nowrap">
                     Sort by:
                   </label>
@@ -279,7 +282,7 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
                     id="sort"
                     value={sortKey}
                     onChange={(e) => setSortKey(e.target.value as SortKey)}
-                    className="border border-border bg-background text-foreground rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="min-w-0 max-w-[12rem] flex-1 border border-border bg-background text-foreground rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-accent md:flex-none"
                   >
                     {SORT_OPTIONS.map((o) => (
                       <option key={o.value} value={o.value}>
@@ -411,7 +414,7 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
                       {p.name}
                     </h3>
                     {isApproved ? (
-                      <div className="flex items-baseline gap-2 mt-auto pt-2">
+                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 mt-auto pt-2">
                         {msrpForDisplay != null && displayPrice != null && msrpForDisplay > displayPrice && (
                           <span className="text-sm text-muted-foreground line-through">
                             {formatMoney(msrpForDisplay)}

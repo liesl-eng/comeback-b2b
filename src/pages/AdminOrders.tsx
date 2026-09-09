@@ -149,8 +149,8 @@ export default function AdminOrders() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="container mx-auto max-w-6xl px-6 py-10">
-        <div className="flex items-center justify-between mb-6">
+      <div className="container mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-10">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div>
             <h1 className="text-3xl font-semibold">Orders</h1>
             <p className="text-muted-foreground text-sm">All buyer order submissions</p>
@@ -161,7 +161,7 @@ export default function AdminOrders() {
         </div>
 
         <Card>
-          <CardContent className="p-0">
+          <CardContent className="overflow-x-auto p-0">
             {loading ? (
               <div className="flex items-center justify-center py-16"><Loader2 className="animate-spin" /></div>
             ) : orders.length === 0 ? (

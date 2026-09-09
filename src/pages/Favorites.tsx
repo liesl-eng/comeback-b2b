@@ -44,7 +44,7 @@ const Favorites = () => {
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 min-[360px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {items.map(({ id, data }) => {
               const price = formatUsd(data.price);
               const msrp = formatUsd(data.msrp);
@@ -71,7 +71,7 @@ const Favorites = () => {
                     )}
                     <div className="font-medium leading-tight line-clamp-2">{data.name}</div>
                     {(price || msrp) && (
-                      <div className="mt-auto pt-2 flex items-baseline gap-2">
+                      <div className="mt-auto flex flex-wrap items-baseline gap-x-2 gap-y-1 pt-2">
                         {msrp && price && (
                           <span className="text-xs text-muted-foreground line-through">{msrp}</span>
                         )}

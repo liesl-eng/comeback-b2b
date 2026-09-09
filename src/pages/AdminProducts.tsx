@@ -457,12 +457,12 @@ export default function AdminProducts() {
                 not affected. Type <code className="font-mono">WIPE</code> to confirm.
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex items-center gap-2">
+            <CardContent className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
               <Input
                 placeholder="Type WIPE to confirm"
                 value={wipeConfirm}
                 onChange={(e) => setWipeConfirm(e.target.value)}
-                className="max-w-xs"
+                className="w-full sm:max-w-xs"
                 disabled={wiping}
               />
               <Button
@@ -552,7 +552,7 @@ export default function AdminProducts() {
           </Card>
 
           <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as BrandTab)}>
-            <TabsList className="grid grid-cols-4 w-full">
+            <TabsList className="grid h-auto w-full grid-cols-2 gap-1 md:grid-cols-4">
               {BRAND_TABS.map((b) => (
                 <TabsTrigger key={b} value={b}>
                   {b}

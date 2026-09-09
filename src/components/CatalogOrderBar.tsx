@@ -106,14 +106,14 @@ export default function CatalogOrderBar() {
                             </div>
                             <div className="space-y-2">
                               {list.filter((l) => l.brand === b.brand).map((l) => (
-                                <div key={l.productId} className="flex items-center gap-2">
+                                <div key={l.productId} className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
                                   <div className="h-12 w-12 rounded bg-muted overflow-hidden flex-shrink-0">
                                     {l.imageUrl && <img src={l.imageUrl} alt={l.name} className="h-full w-full object-cover" />}
                                   </div>
                                   <div className="flex-1 min-w-0">
                                     <p className="text-xs font-medium truncate">{l.name}</p>
                                   </div>
-                                  <div className="flex items-center gap-1">
+                                  <div className="ml-14 flex items-center gap-1 sm:ml-0">
                                     <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => decrement(l.productId)}>
                                       <Minus className="h-3 w-3" />
                                     </Button>

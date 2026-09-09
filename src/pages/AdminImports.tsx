@@ -332,8 +332,8 @@ function DiffTable({ rows }: { rows: StagingRow[] }) {
         return (
           <div key={s.key}>
             <h4 className="text-sm font-semibold mb-2">{s.label} <span className="text-muted-foreground font-normal">({list.length})</span></h4>
-            <div className="border rounded-md overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border rounded-md overflow-x-auto">
+              <table className="w-full min-w-[36rem] text-sm">
                 <thead className="bg-muted/50 text-muted-foreground">
                   <tr>
                     <th className="text-left px-3 py-2 w-12"></th>

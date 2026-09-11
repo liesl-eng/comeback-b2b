@@ -90,6 +90,119 @@ const HIDDEN_PRODUCTS: RegExp[] = [
 // Brands hidden from the storefront (still synced/imported on the admin side).
 const HIDDEN_BRANDS = new Set(["sei"]);
 
+// Caracole products hidden from the storefront (exact name match, Caracole only).
+const HIDDEN_CARACOLE_NAMES = new Set(
+  [
+    "Fritza Bunching End Tables",
+    "Fleur Wood Back Lounge Chair",
+    "Gold Is Up",
+    "Overlap Wall Mirror",
+    "Movement Chair",
+    "Fleur Nightstand",
+    "Aperture End Table",
+    "First Chair",
+    "Clio Bed",
+    "Wish You Were Here Dining Table",
+    "Madera Armless Laf Bumper - Oatmeal",
+    "Overlap Nightstand",
+    "Jagger Swivel Chair",
+    "Periphery Cocktail Table",
+    "Beta Side Table",
+    "Caress Dining Chair",
+    "Lumi Sectional Components",
+    "Fleur Console Table",
+    "Reserved Seating Side Dining Chair",
+    "Three's Company Sectional Components",
+    "Fleur Open Nightstand",
+    "Round About-Tall",
+    "Oblique Armoire",
+    "Alpha Side Table",
+    "End Quote Side Table",
+    "Bello Corner RAF Chair",
+    "Spy Glass",
+    "Sylvie Side Chair",
+    "Overlap Side Table",
+    "Madera Chest - Chocolate",
+    "Key Element",
+    "Overlap Rectangle Wedge Base Light",
+    "Epoch Armchair",
+    "Cape Verde Side Table",
+    "Parallax",
+    "Gamma Side Table",
+    "Overlap Sectional Components",
+    "Overlap Side Chair Ivory",
+    "Spy Glass Table",
+    "Allure Armoire",
+    "Aphelion Dining Table",
+    "Amalie Side Table",
+    "Serir Medium Cocktail Table",
+    "Altura Stone Top Hall Chest",
+    "The Contempo Side",
+    "Overlap Chaise",
+    "Wrap Nightstand",
+    "Pinstripe Bed",
+    "Overlap Accent Chair",
+    "Bello Armless Sofa",
+    "All Wrapped Up Dresser",
+    "Fleur Wood Back Sofa",
+    "Round About-Med",
+    "Overlap Floor Mirror",
+    "Overlap Bed",
+    "Monaco Floor Mirror",
+    "Apollo Dining Chair",
+    "Champagne Side Chair",
+    "Cameo Counterstool",
+    "The Naturalist Dining Table",
+    "Turn Style Cocktail Table",
+    "Serir Small Cocktail Table",
+    "Muse Nightstand",
+    "Cameo Dining Chair",
+    "Cuff Links (nesting end tables)",
+    "Tension Dining Chair",
+    "Sojourn Sideboard",
+    "Round About-Short",
+    'Devon 98" Sofa Camel',
+    "Muse Dresser",
+    "Fleur Sideboard",
+    "Cocktail Couture Round End Table",
+    "Emphasis Counterstool",
+    "Cape Verde Cocktail Table",
+    "Love Round End Table",
+    "Overlap Round Cocktail Table",
+    "Rivet",
+    "Rhythm Sideboard",
+    "Cocktail Couture Round Cocktail Table",
+    "Bello Armless Chair",
+    "Counter Balance Cocktail Table",
+    "Unity Dining Chair",
+    "Reserved Seating Arm Dining Chair",
+    "Fleur Wood Back Dining Chair",
+    "Fleur Open Cocktail Table W/Wood Shelf",
+    "Serir Large Cocktail Table",
+    "Celeste",
+    "Overlap Dresser",
+    "Overlap Integrated Accent Table",
+    "Gelee Armoire",
+    "Rhythm Rectangle Cocktail Table",
+    "Bello Ottoman",
+    "Pinstripe Dining Chair",
+    "Rhythm Dining Table",
+    "Fleur Bed",
+    "Next Course Chair",
+    "Overlap Raf Loveseat Ecru",
+    "Bello Corner LAF Chair",
+    "Fleur Side Table W/ Wood Shelf",
+    "Madera Raf Loveseat - Oatmeal",
+    "Emphasis Dining Chair",
+    "Fleur Dining Table",
+    "Wish You Were Here Cocktail Table",
+    "Counter Balance Side Table",
+    "Fleur Dresser",
+    "Adele Cocktail Table",
+    "Pinstripe Dark End Table",
+  ].map((s) => s.trim().toLowerCase())
+);
+
 // Shorter display labels for brand names that are too long to fit on one line.
 const BRAND_DISPLAY_LABELS: Record<string, string> = {
   "ART Home Furnishings": "ART Home",
@@ -113,7 +226,15 @@ function applyOverrides(rows: SheetRow[]): SheetRow[] {
     // Exclude permanently hidden products.
     .filter((r) => !HIDDEN_PRODUCTS.some((re) => re.test(r.name)))
     // Exclude hidden brands from the front end.
-    .filter((r) => !HIDDEN_BRANDS.has((r.brand ?? "").trim().toLowerCase()));
+    .filter((r) => !HIDDEN_BRANDS.has((r.brand ?? "").trim().toLowerCase()))
+    // Exclude hidden Caracole products.
+    .filter(
+      (r) =>
+        !(
+          (r.brand ?? "").trim().toLowerCase() === "caracole" &&
+          HIDDEN_CARACOLE_NAMES.has(r.name.trim().toLowerCase())
+        )
+    );
 
 }
 

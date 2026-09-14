@@ -77,11 +77,17 @@ export function BuildOrderProvider({ children }: { children: ReactNode }) {
           ? parsed.spaces.flatMap((space: { items?: OrderItem[] }) => space.items ?? [])
           : [];
       setState({ items: mergeSavedItems(savedItems), buyerInfo: { ...defaultBuyerInfo, ...parsed?.buyerInfo } });
-    } catch {}
+    } catch {
+      setState(initialState());
+    }
   }, []);
 
   useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {
+      return;
+    }
   }, [state]);
 
   const addItem: Ctx["addItem"] = useCallback((item, qty = 1) => {
@@ -121,7 +127,11 @@ export function BuildOrderProvider({ children }: { children: ReactNode }) {
 
   const clearOrder = useCallback(() => {
     setState(initialState());
-    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      return;
+    }
   }, []);
 
   const totals = useMemo(() => {

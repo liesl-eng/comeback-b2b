@@ -35,6 +35,7 @@ export interface SheetRow {
   finalDiscountPct: number | null;
   unitsAvailable: number;
   category: string | null;
+  location: string | null;
   sourceLastUpdated: string | null;
 }
 
@@ -138,6 +139,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
   const iDiscount = idx("Discount %");
   const iUnits = idx("Units Available");
   const iCategory = idx("Category");
+  const iLocation = idx("Location");
   const iUpdated = idx("Last Updated");
   // "Final Price (MIN Rule)" (col K) and the Discount % immediately after it (col L)
   const iFinalPrice = header.findIndex((h) => h.startsWith("final price"));
@@ -167,6 +169,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
       finalDiscountPct: iFinalDiscount >= 0 ? cleanPct(r[iFinalDiscount]) : null,
       unitsAvailable: iUnits >= 0 ? cleanInt(r[iUnits]) : 0,
       category: iCategory >= 0 ? cleanStr(r[iCategory]) : null,
+      location: iLocation >= 0 ? cleanStr(r[iLocation]) : null,
       sourceLastUpdated: iUpdated >= 0 ? cleanStr(r[iUpdated]) : null,
     });
   }

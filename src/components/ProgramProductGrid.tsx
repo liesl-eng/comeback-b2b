@@ -45,6 +45,7 @@ interface CardProduct {
   finalPrice: number | null;
   unitsAvailable: number;
   imageUrl: string | null;
+  location: string | null;
 }
 
 // Effective display price: always prefer Column K (finalPrice) when available,
@@ -161,6 +162,9 @@ const ProductCard = ({ p }: { p: CardProduct }) => {
         <p className="text-xs text-muted-foreground mb-3">
           {p.unitsAvailable >= 25 ? "25+ available" : `${p.unitsAvailable} in stock`}
         </p>
+        {p.location && (
+          <p className="text-xs text-muted-foreground mb-2">{p.location}</p>
+        )}
         {isApproved ? (
           <>
             <div className="mb-1 flex items-baseline gap-2">
@@ -312,6 +316,7 @@ const ProgramProductGrid = ({ config }: { config: ProgramProductGridConfig }) =>
       finalPrice: r.finalPrice,
       unitsAvailable: r.unitsAvailable,
       imageUrl: brand.imageOverride?.(r.name) ?? r.imageUrl,
+      location: r.location,
     }));
     if (cards.length === 0 && brand.fallback && brand.fallback.length > 0) {
       cards = brand.fallback.map((f) => ({
@@ -321,6 +326,7 @@ const ProgramProductGrid = ({ config }: { config: ProgramProductGridConfig }) =>
         finalPrice: null,
         unitsAvailable: f.unitsAvailable,
         imageUrl: brand.imageOverride?.(f.name) ?? f.imageUrl ?? null,
+        location: null,
       }));
     }
     if (sortKey === "price_asc") {

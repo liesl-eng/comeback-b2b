@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from "react";
 
 export interface OrderItem {
-  id: string;            // unique per (brand+name) line
+  id: string;
   productName: string;
   brand: string;
   imageUrl: string | null;
@@ -9,12 +9,6 @@ export interface OrderItem {
   yourPrice: number;
   quantity: number;
   unitsAvailable: number;
-}
-
-export interface OrderSpace {
-  id: string;
-  name: string;
-  items: OrderItem[];
 }
 
 export interface BuyerInfo {
@@ -26,7 +20,7 @@ export interface BuyerInfo {
 }
 
 interface OrderState {
-  spaces: OrderSpace[];
+  items: OrderItem[];
   buyerInfo: BuyerInfo;
 }
 
@@ -37,10 +31,17 @@ const defaultBuyerInfo: BuyerInfo = {
   companyName: "", contactName: "", email: "", phone: "", notes: "",
 };
 
-const initialState = (): OrderState => ({
-  spaces: [{ id: "space_1", name: "Collection 1", items: [] }],
-  buyerInfo: { ...defaultBuyerInfo },
-});
+const initialState = (): OrderState => ({ items: [], buyerInfo: { ...defaultBuyerInfo } });
+
+function mergeSavedItems(items: OrderItem[]): OrderItem[] {
+  const merged = new Map<string, OrderItem>();
+  for (const item of items) {
+    const existing = merged.get(item.id);
+    const quantity = Math.min((existing?.quantity ?? 0) + item.quantity, item.unitsAvailable || Infinity);
+    merged.set(item.id, { ...item, quantity });
+  }
+  return Array.from(merged.values());
+}
 
 interface Ctx {
   state: OrderState;
@@ -49,19 +50,13 @@ interface Ctx {
     grandTotal: number;
     grandMsrp: number;
     savings: number;
-    spacesWithItems: number;
     moqMet: boolean;
     moqRemaining: number;
-    spaceSubtotal: (spaceId: string) => number;
     brandSummary: { brand: string; itemCount: number; brandTotal: number }[];
   };
-  addItem: (spaceId: string, item: Omit<OrderItem, "quantity">, qty?: number) => void;
-  updateQty: (spaceId: string, itemId: string, qty: number) => void;
-  removeItem: (spaceId: string, itemId: string) => void;
-  addSpace: (name?: string) => string;
-  addSpaceWithItem: (name: string | undefined, item: Omit<OrderItem, "quantity">, qty?: number) => { id: string; name: string };
-  renameSpace: (spaceId: string, name: string) => void;
-  deleteSpace: (spaceId: string) => void;
+  addItem: (item: Omit<OrderItem, "quantity">, qty?: number) => void;
+  updateQty: (itemId: string, qty: number) => void;
+  removeItem: (itemId: string) => void;
   setBuyerInfo: (info: BuyerInfo) => void;
   clearOrder: () => void;
 }
@@ -74,10 +69,14 @@ export function BuildOrderProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed?.spaces?.length) setState({ ...initialState(), ...parsed });
-      }
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      const savedItems = Array.isArray(parsed?.items)
+        ? parsed.items
+        : Array.isArray(parsed?.spaces)
+          ? parsed.spaces.flatMap((space: { items?: OrderItem[] }) => space.items ?? [])
+          : [];
+      setState({ items: mergeSavedItems(savedItems), buyerInfo: { ...defaultBuyerInfo, ...parsed?.buyerInfo } });
     } catch {}
   }, []);
 
@@ -85,93 +84,39 @@ export function BuildOrderProvider({ children }: { children: ReactNode }) {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
   }, [state]);
 
-  const addItem: Ctx["addItem"] = useCallback((spaceId, item, qty = 1) => {
+  const addItem: Ctx["addItem"] = useCallback((item, qty = 1) => {
     setState((prev) => {
-      const spaces = prev.spaces.map((s) => {
-        if (s.id !== spaceId) return s;
-        const existing = s.items.find((i) => i.id === item.id);
-        if (existing) {
-          const cap = item.unitsAvailable || existing.quantity + qty;
-          return {
-            ...s,
-            items: s.items.map((i) =>
-              i.id === item.id ? { ...i, quantity: Math.min(i.quantity + qty, cap) } : i,
-            ),
-          };
-        }
-        return { ...s, items: [...s.items, { ...item, quantity: Math.min(qty, item.unitsAvailable || qty) }] };
-      });
-      return { ...prev, spaces };
+      const existing = prev.items.find((entry) => entry.id === item.id);
+      if (!existing) {
+        return { ...prev, items: [...prev.items, { ...item, quantity: Math.min(qty, item.unitsAvailable || qty) }] };
+      }
+      const cap = item.unitsAvailable || existing.quantity + qty;
+      return {
+        ...prev,
+        items: prev.items.map((entry) =>
+          entry.id === item.id ? { ...entry, ...item, quantity: Math.min(entry.quantity + qty, cap) } : entry,
+        ),
+      };
     });
   }, []);
 
-  const updateQty: Ctx["updateQty"] = useCallback((spaceId, itemId, qty) => {
+  const updateQty: Ctx["updateQty"] = useCallback((itemId, qty) => {
     setState((prev) => ({
       ...prev,
-      spaces: prev.spaces.map((s) => {
-        if (s.id !== spaceId) return s;
-        return {
-          ...s,
-          items: s.items.map((i) => {
-            if (i.id !== itemId) return i;
-            const max = i.unitsAvailable || qty;
-            return { ...i, quantity: Math.max(1, Math.min(qty, max)) };
-          }),
-        };
-      }),
-    }));
-  }, []);
-
-  const removeItem: Ctx["removeItem"] = useCallback((spaceId, itemId) => {
-    setState((prev) => ({
-      ...prev,
-      spaces: prev.spaces.map((s) =>
-        s.id === spaceId ? { ...s, items: s.items.filter((i) => i.id !== itemId) } : s,
+      items: prev.items.map((item) =>
+        item.id === itemId
+          ? { ...item, quantity: Math.max(1, Math.min(qty, item.unitsAvailable || qty)) }
+          : item,
       ),
     }));
   }, []);
 
-  const addSpace: Ctx["addSpace"] = useCallback((name) => {
-    const id = `space_${Date.now()}`;
-    setState((prev) => {
-      const n = name || `Collection ${prev.spaces.length + 1}`;
-      return { ...prev, spaces: [...prev.spaces, { id, name: n, items: [] }] };
-    });
-    return id;
+  const removeItem: Ctx["removeItem"] = useCallback((itemId) => {
+    setState((prev) => ({ ...prev, items: prev.items.filter((item) => item.id !== itemId) }));
   }, []);
 
-  const addSpaceWithItem: Ctx["addSpaceWithItem"] = useCallback((name, item, qty = 1) => {
-    const id = `space_${Date.now()}`;
-    let finalName = name?.trim() || "";
-    setState((prev) => {
-      const n = finalName || `Collection ${prev.spaces.length + 1}`;
-      finalName = n;
-      const q = Math.min(qty, item.unitsAvailable || qty);
-      const newSpace: OrderSpace = { id, name: n, items: [{ ...item, quantity: q }] };
-      return { ...prev, spaces: [...prev.spaces, newSpace] };
-    });
-    return { id, name: finalName };
-  }, []);
-
-  const renameSpace: Ctx["renameSpace"] = useCallback((spaceId, name) => {
-    setState((prev) => ({
-      ...prev,
-      spaces: prev.spaces.map((s) => (s.id === spaceId ? { ...s, name: name.trim() || s.name } : s)),
-    }));
-  }, []);
-
-  const deleteSpace: Ctx["deleteSpace"] = useCallback((spaceId) => {
-    setState((prev) => {
-      const remaining = prev.spaces.filter((s) => s.id !== spaceId);
-      if (remaining.length === 0) {
-        return { ...prev, spaces: [{ id: `space_${Date.now()}`, name: "Collection 1", items: [] }] };
-      }
-      return { ...prev, spaces: remaining };
-    });
-  }, []);
-
-  const setBuyerInfo: Ctx["setBuyerInfo"] = useCallback((info) => {
-    setState((prev) => ({ ...prev, buyerInfo: info }));
+  const setBuyerInfo: Ctx["setBuyerInfo"] = useCallback((buyerInfo) => {
+    setState((prev) => ({ ...prev, buyerInfo }));
   }, []);
 
   const clearOrder = useCallback(() => {
@@ -180,44 +125,33 @@ export function BuildOrderProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const totals = useMemo(() => {
-    const allItems = state.spaces.flatMap((s) => s.items);
-    const items = allItems.reduce((n, i) => n + i.quantity, 0);
-    const grandTotal = allItems.reduce((n, i) => n + i.quantity * i.yourPrice, 0);
-    const grandMsrp = allItems.reduce((n, i) => n + i.quantity * i.msrp, 0);
+    const items = state.items.reduce((sum, item) => sum + item.quantity, 0);
+    const grandTotal = state.items.reduce((sum, item) => sum + item.quantity * item.yourPrice, 0);
+    const grandMsrp = state.items.reduce((sum, item) => sum + item.quantity * item.msrp, 0);
     const savings = grandMsrp - grandTotal;
-    const spacesWithItems = state.spaces.filter((s) => s.items.length > 0).length;
     const moqMet = grandTotal >= ORDER_MOQ;
     const moqRemaining = Math.max(0, ORDER_MOQ - grandTotal);
-
-    const brandMap = new Map<string, { itemCount: number; brandTotal: number }>();
-    for (const i of allItems) {
-      const cur = brandMap.get(i.brand) ?? { itemCount: 0, brandTotal: 0 };
-      cur.itemCount += i.quantity;
-      cur.brandTotal += i.quantity * i.yourPrice;
-      brandMap.set(i.brand, cur);
+    const brands = new Map<string, { itemCount: number; brandTotal: number }>();
+    for (const item of state.items) {
+      const current = brands.get(item.brand) ?? { itemCount: 0, brandTotal: 0 };
+      current.itemCount += item.quantity;
+      current.brandTotal += item.quantity * item.yourPrice;
+      brands.set(item.brand, current);
     }
-    const brandSummary = Array.from(brandMap.entries())
-      .map(([brand, v]) => ({ brand, ...v }))
+    const brandSummary = Array.from(brands, ([brand, summary]) => ({ brand, ...summary }))
       .sort((a, b) => b.brandTotal - a.brandTotal);
-
-    const spaceSubtotal = (spaceId: string) => {
-      const sp = state.spaces.find((s) => s.id === spaceId);
-      if (!sp) return 0;
-      return sp.items.reduce((n, i) => n + i.quantity * i.yourPrice, 0);
-    };
-
-    return { items, grandTotal, grandMsrp, savings, spacesWithItems, moqMet, moqRemaining, spaceSubtotal, brandSummary };
-  }, [state]);
+    return { items, grandTotal, grandMsrp, savings, moqMet, moqRemaining, brandSummary };
+  }, [state.items]);
 
   return (
-    <OrderCtx.Provider value={{ state, totals, addItem, updateQty, removeItem, addSpace, addSpaceWithItem, renameSpace, deleteSpace, setBuyerInfo, clearOrder }}>
+    <OrderCtx.Provider value={{ state, totals, addItem, updateQty, removeItem, setBuyerInfo, clearOrder }}>
       {children}
     </OrderCtx.Provider>
   );
 }
 
 export function useBuildOrder() {
-  const v = useContext(OrderCtx);
-  if (!v) throw new Error("useBuildOrder must be used within BuildOrderProvider");
-  return v;
+  const value = useContext(OrderCtx);
+  if (!value) throw new Error("useBuildOrder must be used within BuildOrderProvider");
+  return value;
 }

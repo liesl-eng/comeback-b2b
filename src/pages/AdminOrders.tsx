@@ -139,13 +139,6 @@ export default function AdminOrders() {
     );
   }
 
-  // Group items by space for the detail view
-  const itemsBySpace = items.reduce<Record<string, OrderItemRow[]>>((acc, it) => {
-    const k = it.space_name || "Space";
-    (acc[k] ||= []).push(it);
-    return acc;
-  }, {});
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -232,34 +225,29 @@ export default function AdminOrders() {
               {loadingItems ? (
                 <div className="flex items-center justify-center py-8"><Loader2 className="animate-spin" /></div>
               ) : (
-                <div className="space-y-5 mt-2">
-                  {Object.entries(itemsBySpace).map(([space, rows]) => (
-                    <div key={space}>
-                      <h4 className="font-semibold text-sm mb-2">{space}</h4>
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>Brand</TableHead>
-                            <TableHead>Product</TableHead>
-                            <TableHead className="text-right">Qty</TableHead>
-                            <TableHead className="text-right">Unit</TableHead>
-                            <TableHead className="text-right">Line Total</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {rows.map((i) => (
-                            <TableRow key={i.id}>
-                              <TableCell>{i.brand}</TableCell>
-                              <TableCell>{i.product_name}</TableCell>
-                              <TableCell className="text-right">{i.quantity}</TableCell>
-                              <TableCell className="text-right">{fmtMoney(i.unit_price)}</TableCell>
-                              <TableCell className="text-right font-medium">{fmtMoney(i.line_total)}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </div>
-                  ))}
+                <div className="mt-2 overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Brand</TableHead>
+                        <TableHead>Product</TableHead>
+                        <TableHead className="text-right">Qty</TableHead>
+                        <TableHead className="text-right">Unit</TableHead>
+                        <TableHead className="text-right">Line Total</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {items.map((item) => (
+                        <TableRow key={item.id}>
+                          <TableCell>{item.brand}</TableCell>
+                          <TableCell>{item.product_name}</TableCell>
+                          <TableCell className="text-right">{item.quantity}</TableCell>
+                          <TableCell className="text-right">{fmtMoney(item.unit_price)}</TableCell>
+                          <TableCell className="text-right font-medium">{fmtMoney(item.line_total)}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </div>
               )}
 

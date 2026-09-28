@@ -16,7 +16,6 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Restocking from "./pages/Restocking";
 
-
 import Favorites from "./pages/Favorites";
 import About from "./pages/About";
 
@@ -65,58 +64,86 @@ const App = () => {
               <BrowserRouter>
                 <ScrollToTop />
                 <OrderBar />
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/unlock" element={<UnlockAccess />} />
-                  <Route path="/admin/access-codes" element={<ProtectedRoute><AdminAccessCodes /></ProtectedRoute>} />
-                  <Route path="/admin/orders" element={<ProtectedRoute><AdminOrders /></ProtectedRoute>} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/catalog" element={<Navigate to="/" replace />} />
-                  <Route path="/products" element={<Navigate to="/" replace />} />
-                  <Route path="/product/:id" element={<Navigate to="/" replace />} />
-                  <Route path="/pallets" element={<Navigate to="/" replace />} />
-                  <Route path="/pallets/:palletId" element={<Navigate to="/" replace />} />
-                  <Route path="/pallet" element={<Navigate to="/" replace />} />
-                  <Route path="/cart" element={<Navigate to="/" replace />} />
-                  <Route path="/lighting" element={<LightingProgram />} />
-                  <Route path="/lighting-program" element={<Navigate to="/lighting" replace />} />
-                  <Route path="/Lighting-Program" element={<Navigate to="/lighting" replace />} />
-                  <Route path="/mirrors" element={<MirrorProgram />} />
-                  <Route path="/mirror-program" element={<Navigate to="/mirrors" replace />} />
-                  <Route path="/Mirror-Program" element={<Navigate to="/mirrors" replace />} />
-                  <Route path="/rechargeable-table-lamps" element={<MeridianLamp />} />
-                  <Route path="/beds" element={<Beds />} />
-                  <Route path="/dressers" element={<Dressers />} />
-                  <Route path="/storage" element={<Storage />} />
-                  <Route path="/seating" element={<Seating />} />
-                  <Route path="/tables" element={<Tables />} />
-                  <Route path="/all" element={<All />} />
-                  <Route path="/collections/small-furniture" element={<Navigate to="/all" replace />} />
-                  <Route path="/cabinets" element={<Navigate to="/all" replace />} />
+                {(() => {
+                  const host = typeof window !== "undefined" ? window.location.hostname : "";
+                  const bypass = typeof window !== "undefined" && window.location.search.includes("preview=1");
+                  // Public-facing domains show the Restocking landing page.
+                  // Lovable preview/sandbox and localhost show the real site.
+                  const PUBLIC_HOSTS = [
+                    "comebackgoods.com",
+                    "www.comebackgoods.com",
+                    "comebackb2b.com",
+                    "www.comebackb2b.com",
+                    "comeback.lovable.app",
+                  ];
+                  const isPublic = PUBLIC_HOSTS.includes(host) && !bypass;
+                  const adminRoutes = (
+                    <>
+                      <Route path="/auth" element={<Auth />} />
+                      <Route path="/unlock" element={<UnlockAccess />} />
+                      <Route path="/admin/access-codes" element={<ProtectedRoute><AdminAccessCodes /></ProtectedRoute>} />
+                      <Route path="/admin/orders" element={<ProtectedRoute><AdminOrders /></ProtectedRoute>} />
+                      <Route path="/admin/products" element={<Navigate to="/admin" replace />} />
+                      <Route
+                        path="/admin"
+                        element={
+                          <ProtectedRoute>
+                            <AdminProducts />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/admin/imports"
+                        element={
+                          <ProtectedRoute>
+                            <AdminImports />
+                          </ProtectedRoute>
+                        }
+                      />
+                    </>
+                  );
 
+                  if (isPublic) {
+                    return (
+                      <Routes>
+                        {adminRoutes}
+                        <Route path="*" element={<Restocking />} />
+                      </Routes>
+                    );
+                  }
 
-
-                  <Route path="/favorites" element={<Favorites />} />
-                  <Route path="/admin/products" element={<Navigate to="/admin" replace />} />
-                  <Route
-                    path="/admin"
-                    element={
-                      <ProtectedRoute>
-                        <AdminProducts />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/admin/imports"
-                    element={
-                      <ProtectedRoute>
-                        <AdminImports />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                  return (
+                    <Routes>
+                      <Route path="/" element={<Index />} />
+                      {adminRoutes}
+                      <Route path="/about" element={<About />} />
+                      <Route path="/catalog" element={<Navigate to="/" replace />} />
+                      <Route path="/products" element={<Navigate to="/" replace />} />
+                      <Route path="/product/:id" element={<Navigate to="/" replace />} />
+                      <Route path="/pallets" element={<Navigate to="/" replace />} />
+                      <Route path="/pallets/:palletId" element={<Navigate to="/" replace />} />
+                      <Route path="/pallet" element={<Navigate to="/" replace />} />
+                      <Route path="/cart" element={<Navigate to="/" replace />} />
+                      <Route path="/lighting" element={<LightingProgram />} />
+                      <Route path="/lighting-program" element={<Navigate to="/lighting" replace />} />
+                      <Route path="/Lighting-Program" element={<Navigate to="/lighting" replace />} />
+                      <Route path="/mirrors" element={<MirrorProgram />} />
+                      <Route path="/mirror-program" element={<Navigate to="/mirrors" replace />} />
+                      <Route path="/Mirror-Program" element={<Navigate to="/mirrors" replace />} />
+                      <Route path="/rechargeable-table-lamps" element={<MeridianLamp />} />
+                      <Route path="/beds" element={<Beds />} />
+                      <Route path="/dressers" element={<Dressers />} />
+                      <Route path="/storage" element={<Storage />} />
+                      <Route path="/seating" element={<Seating />} />
+                      <Route path="/tables" element={<Tables />} />
+                      <Route path="/all" element={<All />} />
+                      <Route path="/collections/small-furniture" element={<Navigate to="/all" replace />} />
+                      <Route path="/cabinets" element={<Navigate to="/all" replace />} />
+                      <Route path="/favorites" element={<Favorites />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  );
+                })()}
 
                 
               </BrowserRouter>

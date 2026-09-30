@@ -161,7 +161,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
         return u;
       })(),
       imageFilename: iImageFile >= 0 ? cleanStr(r[iImageFile]) : null,
-      price: (() => { const p = iPrice >= 0 ? cleanMoney(r[iPrice]) : null; return p == null ? null : Math.ceil(p); })(),
+      price: iPrice >= 0 ? cleanMoney(r[iPrice]) : null,
       msrp: iMsrp >= 0 ? cleanMoney(r[iMsrp]) : null,
       wholesale: iWholesale >= 0 ? cleanMoney(r[iWholesale]) : null,
       discountPct: iDiscount >= 0 ? cleanPct(r[iDiscount]) : null,

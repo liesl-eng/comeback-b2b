@@ -143,7 +143,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
   const iUpdated = idx("Last Updated");
   // "Final Price (MIN Rule)" (col K) and the Discount % immediately after it (col L)
   const iFinalPrice = header.findIndex((h) => h.startsWith("final price"));
-  const iFinalDiscount = iFinalPrice >= 0 ? iFinalPrice + 1 : -1;
+  void iFinalPrice;
 
   const out: SheetRow[] = [];
   for (let i = 1; i < rows.length; i++) {

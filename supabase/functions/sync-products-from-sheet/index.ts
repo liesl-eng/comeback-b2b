@@ -14,16 +14,14 @@ const SHEET_ID = "1ItM29QVpYh85ESpMLWVJjg13RP-ACHkSPRcGtL21yl8";
 // Tabs are addressed by gid so renaming a tab in the sheet doesn't break sync.
 const SHEET_GIDS: Record<string, string> = {
   "Modus Furniture": "2113198924",
-  "Ferm Living": "1687042732",
   "Arteriors Home": "585735142",
   "Havenly": "919282075",
   "Hem": "494759443",
   "ART Home Furnishings": "1126365801",
   "Hews Home": "1322353551",
-  "Bassett Mirror": "681217923",
-  "SEI": "810215814",
   "Mopio": "1731915112",
   "Caracole": "494558387",
+  "Soho Home": "817219996",
 };
 
 const DEFAULT_BRANDS = Object.keys(SHEET_GIDS);

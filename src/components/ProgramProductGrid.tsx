@@ -159,6 +159,9 @@ const ProductCard = ({ p }: { p: CardProduct }) => {
         <h3 className="font-bold text-foreground text-base leading-snug mb-1 line-clamp-2">
           {p.name}
         </h3>
+        <span className="self-end text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground mb-1">
+          {p.displayBrand?.toLowerCase() === "soho home" ? "Like New Return" : "Open Box"}
+        </span>
         <p className="text-xs text-muted-foreground mb-3">
           {p.unitsAvailable >= 25 ? "25+ available" : `${p.unitsAvailable} in stock`}
         </p>

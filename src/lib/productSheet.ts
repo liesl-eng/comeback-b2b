@@ -143,7 +143,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
   const iUpdated = idx("Last Updated");
   // "Final Price (MIN Rule)" (col K) and the Discount % immediately after it (col L)
   const iFinalPrice = header.findIndex((h) => h.startsWith("final price"));
-  const iFinalDiscount = iFinalPrice >= 0 ? iFinalPrice + 1 : -1;
+  void iFinalPrice;
 
   const out: SheetRow[] = [];
   for (let i = 1; i < rows.length; i++) {
@@ -165,8 +165,9 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
       msrp: iMsrp >= 0 ? cleanMoney(r[iMsrp]) : null,
       wholesale: iWholesale >= 0 ? cleanMoney(r[iWholesale]) : null,
       discountPct: iDiscount >= 0 ? cleanPct(r[iDiscount]) : null,
-      finalPrice: iFinalPrice >= 0 ? cleanMoney(r[iFinalPrice]) : null,
-      finalDiscountPct: iFinalDiscount >= 0 ? cleanPct(r[iFinalDiscount]) : null,
+      // Pricing now pulls from Column E (Price). Column K/L intentionally ignored.
+      finalPrice: null,
+      finalDiscountPct: null,
       unitsAvailable: iUnits >= 0 ? cleanInt(r[iUnits]) : 0,
       category: iCategory >= 0 ? cleanStr(r[iCategory]) : null,
       location: iLocation >= 0 ? cleanStr(r[iLocation]) : null,

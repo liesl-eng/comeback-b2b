@@ -413,7 +413,8 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
                     <h3 className="text-lg font-semibold text-foreground line-clamp-3 min-h-[5.25rem] leading-snug">
                       {p.name}
                     </h3>
-                    <span className="self-end text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
+                    <span className="self-end flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-secondary-foreground mb-1">
+                      <span className="size-2 rounded-full bg-secondary" />
                       {p.brand?.toLowerCase() === "soho home" ? "Like New Return" : "Open Box"}
                     </span>
                     {isApproved ? (

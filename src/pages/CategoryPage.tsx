@@ -119,10 +119,8 @@ const CategoryPage = ({ category, title, subtitle, categoryList }: CategoryPageP
       v == null || !Number.isFinite(v) ? fallback : v;
     if (sortKey === "default") {
       // Default lead brand varies by category.
-      // Note: Mopio products are stored under the "Castlery" brand in the sheet.
       const leadBrand =
         category === "Mirrors" ? "modus furniture"
-        : category === "Tables" ? "castlery"
         : "arteriors home";
       const isLead = (p: SheetRow) =>
         (p.brand ?? "").toLowerCase().includes(leadBrand.split(" ")[0]);

@@ -10,7 +10,6 @@ export const SHEET_GIDS: Record<string, string> = {
   "Hem": "494759443",
   "ART Home Furnishings": "1126365801",
   "Hews Home": "1322353551",
-  "Mopio": "1731915112",
   "Caracole": "494558387",
   "Soho Home": "817219996",
 };
@@ -151,7 +150,7 @@ export async function fetchSheetTab(tab: BrandTab): Promise<SheetRow[]> {
     if (!name) continue;
     out.push({
       name,
-      brand: ((cleanStr(r[iBrand]) ?? tab) === "Castlery" ? "Mopio" : (cleanStr(r[iBrand]) ?? tab)),
+      brand: cleanStr(r[iBrand]) ?? tab,
       imageUrl: (() => {
         const u = iImageUrl >= 0 ? cleanStr(r[iImageUrl]) : null;
         if (!u) return null;

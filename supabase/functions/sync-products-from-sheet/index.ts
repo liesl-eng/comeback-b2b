@@ -19,7 +19,6 @@ const SHEET_GIDS: Record<string, string> = {
   "Hem": "494759443",
   "ART Home Furnishings": "1126365801",
   "Hews Home": "1322353551",
-  "Mopio": "1731915112",
   "Caracole": "494558387",
   "Soho Home": "817219996",
 };

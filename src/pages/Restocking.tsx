@@ -15,10 +15,12 @@ const Restocking = () => {
         href="https://www.comebackrugs.com?from=b2b"
         target="_blank"
         rel="noopener noreferrer"
-        className="w-full bg-primary text-primary-foreground px-6 py-4 flex items-center justify-center gap-2 text-sm md:text-base font-semibold tracking-wide hover:bg-primary/90 transition-colors"
+        className="w-full bg-primary text-primary-foreground px-6 py-6 md:py-10 flex items-center justify-center gap-3 md:gap-5 text-xl md:text-4xl font-semibold tracking-wide hover:bg-primary/90 transition-colors"
       >
-        <span>For our Rug Program click here</span>
-        <ArrowRight className="w-4 h-4" strokeWidth={2} />
+        <span className="text-center leading-snug">
+          For our <span className="text-accent font-bold">Rug Program</span> click here
+        </span>
+        <ArrowRight className="w-6 h-6 md:w-9 md:h-9 shrink-0" strokeWidth={2.5} />
       </a>
 
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-16">
